@@ -1,0 +1,481 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b1120;--surface:#141e30;--surface2:#1c2840;--surface3:#22314d;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#eef2ff;--muted:#7a8fb5;--muted2:#4a5f82;
+  --blue:#4f8ef7;--purple:#8b5cf6;--green:#10d98e;--amber:#f59e0b;
+  --red:#f87171;--bronze:#cd7f32;--silver:#94a3b8;--gold:#f59e0b;--plat:#bfdbfe;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --r8:8px;--r12:12px;--r16:16px;--r20:20px;
+}
+#kr{font-family:var(--font);background:var(--bg);color:var(--text);border-radius:20px;overflow:hidden;min-height:500px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(11,17,32,0.95);border-bottom:0.5px solid var(--border2);position:sticky;top:0;z-index:50}
+.logo{font-size:18px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo span{font-weight:400;opacity:0.5;font-size:12px;margin-left:4px;-webkit-text-fill-color:var(--muted);color:var(--muted)}
+.pills{display:flex;gap:3px;background:var(--surface);border-radius:var(--r12);padding:3px;border:0.5px solid var(--border)}
+.pill{font-size:11px;font-weight:600;padding:5px 10px;border-radius:9px;border:none;background:none;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
+.pill.on{background:var(--surface3);color:var(--text)}
+.scr{display:none;padding:18px}
+.scr.show{display:block}
+.sh{margin-bottom:18px}
+.sh h2{font-size:20px;font-weight:800;letter-spacing:-0.4px;line-height:1.2;margin-bottom:4px}
+.sh p{font-size:12px;color:var(--muted);line-height:1.5}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:8px}
+.tag-blue{background:rgba(79,142,247,0.12);color:#7eaaff;border:0.5px solid rgba(79,142,247,0.25)}
+.tag-green{background:rgba(16,217,142,0.1);color:#2ecc8a;border:0.5px solid rgba(16,217,142,0.25)}
+.tag-amber{background:rgba(245,158,11,0.1);color:#fbbf24;border:0.5px solid rgba(245,158,11,0.25)}
+.dot-pulse{width:5px;height:5px;border-radius:50%;background:currentColor;animation:dp 1.8s ease-in-out infinite}
+@keyframes dp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.6)}}
+.src-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.src{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r16);padding:14px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.src::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--src-color,var(--blue));transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.src:hover{border-color:var(--border2);transform:translateY(-2px)}
+.src.on{border-color:var(--green);background:rgba(16,217,142,0.04)}
+.src.on::after{transform:scaleX(1);background:var(--green)}
+.src-icon{font-size:22px;margin-bottom:8px;display:block}
+.src-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.src-sub{font-size:11px;color:var(--muted);line-height:1.4}
+.src-check{position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border2);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;transition:all .25s}
+.src.on .src-check{background:var(--green);border-color:var(--green);color:#0b1120}
+.prog-bar{height:4px;background:var(--surface2);border-radius:4px;margin-bottom:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-label{font-size:11px;color:var(--muted);margin-bottom:14px}
+.btn{font-family:var(--font);font-size:14px;font-weight:700;padding:13px;border-radius:var(--r12);border:none;cursor:pointer;width:100%;transition:all .2s;letter-spacing:0.1px}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple));color:white}
+.btn-primary:disabled{opacity:0.3;cursor:not-allowed}
+.btn-primary:not(:disabled):hover{opacity:0.9;transform:translateY(-1px)}
+.btn-ghost{background:var(--surface);border:1px solid var(--border2);color:var(--text);margin-top:10px}
+.btn-ghost:hover{background:var(--surface2)}
+.notice{display:flex;align-items:flex-start;gap:10px;background:rgba(79,142,247,0.07);border:0.5px solid rgba(79,142,247,0.2);border-radius:var(--r12);padding:12px 14px;margin-bottom:16px;font-size:12px;color:#93b8ff;line-height:1.5}
+.notice-icon{width:16px;height:16px;border-radius:50%;background:rgba(79,142,247,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;font-weight:700;color:var(--blue)}
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:16px}
+.gauge-num{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:2px}
+.gauge-label{font-size:11px;color:var(--muted);margin-bottom:12px}
+.tier-row{display:flex;gap:6px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.tbadge{font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;border:1.5px solid;opacity:0.35;transition:all .3s;letter-spacing:0.3px}
+.tbadge.on{opacity:1}
+.tbadge.b{border-color:var(--bronze);color:var(--bronze)}
+.tbadge.b.on{background:rgba(205,127,50,0.12)}
+.tbadge.s{border-color:var(--silver);color:var(--silver)}
+.tbadge.s.on{background:rgba(148,163,184,0.12)}
+.tbadge.g{border-color:var(--gold);color:var(--gold)}
+.tbadge.g.on{background:rgba(245,158,11,0.12)}
+.tbadge.p{border-color:var(--plat);color:var(--plat)}
+.tbadge.p.on{background:rgba(191,219,254,0.12)}
+.proof-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.proof-row{display:flex;align-items:center;gap:10px;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r12);padding:12px 14px;transition:border-color .2s}
+.proof-row.on{border-color:rgba(16,217,142,0.25)}
+.proof-ico{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.proof-info{flex:1;min-width:0}
+.proof-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.proof-detail{font-size:11px;color:var(--muted)}
+.proof-pts{font-size:13px;font-weight:700;color:var(--green);margin-right:6px;flex-shrink:0}
+.toggle{width:38px;height:22px;border-radius:11px;background:var(--surface3);border:1.5px solid var(--border2);cursor:pointer;position:relative;transition:all .25s;flex-shrink:0}
+.toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:var(--muted2);top:2px;left:2px;transition:all .25s}
+.toggle.on{background:rgba(16,217,142,0.15);border-color:var(--green)}
+.toggle.on::after{background:var(--green);left:18px}
+.split{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.panel{background:var(--surface);border-radius:var(--r16);overflow:hidden;border:0.5px solid var(--border)}
+.panel-head{padding:10px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:6px}
+.panel-head.bad{color:var(--red)}
+.panel-head.good{color:var(--green)}
+.ph-dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.raw-body{padding:12px 14px;font-family:monospace;font-size:10px;color:var(--muted2);line-height:1.9;max-height:220px;overflow-y:auto}
+.raw-group{margin-bottom:8px;padding-bottom:8px;border-bottom:0.5px solid var(--border)}
+.raw-group:last-child{border:none;margin-bottom:0}
+.raw-source{font-size:9px;color:var(--muted2);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+.raw-line{display:flex;gap:6px;align-items:baseline}
+.raw-k{color:var(--muted2);flex-shrink:0}
+.raw-v{color:rgba(79,142,247,0.6);word-break:break-all}
+.cert-body{padding:14px}
+.cert-logo{font-size:14px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:3px}
+.cert-verified{font-size:9px;background:rgba(16,217,142,0.12);color:#2ecc8a;border:0.5px solid rgba(16,217,142,0.3);padding:2px 8px;border-radius:20px;font-weight:700;letter-spacing:0.5px;display:inline-block;margin-bottom:12px}
+.cert-score-box{background:var(--surface2);border-radius:var(--r12);padding:14px;text-align:center;margin-bottom:12px}
+.cert-num{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1;color:var(--amber)}
+.cert-sub{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:0.5px}
+.cert-attr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:12px}
+.cert-attr:last-child{border:none}
+.cert-attr-k{color:var(--muted);display:flex;align-items:center;gap:5px}
+.cert-attr-v{color:var(--green);font-weight:600;font-size:11px}
+.zk-hash{margin-top:10px;font-family:monospace;font-size:9px;color:rgba(79,142,247,0.4);word-break:break-all;text-align:center;padding:6px 8px;background:rgba(79,142,247,0.04);border-radius:var(--r8);border:0.5px solid rgba(79,142,247,0.12)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.stat{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r12);padding:12px 10px;text-align:center}
+.stat-num{font-size:18px;font-weight:800;line-height:1;margin-bottom:3px}
+.stat-lbl{font-size:10px;color:var(--muted);font-weight:500}
+.offers{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.offer{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r16);padding:14px;display:flex;align-items:center;gap:12px;transition:all .2s;position:relative;overflow:hidden;cursor:pointer}
+.offer::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--oc,var(--blue))}
+.offer:hover:not(.locked){border-color:var(--border2);transform:translateX(2px)}
+.offer.locked{opacity:0.38;cursor:default}
+.offer-ico{width:40px;height:40px;border-radius:var(--r12);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.offer-info{flex:1;min-width:0}
+.offer-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.offer-detail{font-size:11px;color:var(--muted)}
+.offer-rate{text-align:right;flex-shrink:0}
+.offer-rate-num{font-size:17px;font-weight:800;line-height:1;margin-bottom:2px}
+.offer-rate-lbl{font-size:10px;color:var(--muted)}
+.offer-badge{position:absolute;top:8px;right:10px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:0.4px}
+.ob-on{background:rgba(16,217,142,0.12);color:#2ecc8a;border:0.5px solid rgba(16,217,142,0.25)}
+.ob-off{background:rgba(248,113,113,0.1);color:var(--red);border:0.5px solid rgba(248,113,113,0.2)}
+.filter-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.fbtn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:none;color:var(--muted);cursor:pointer;transition:all .2s}
+.fbtn.on{background:var(--surface3);color:var(--text);border-color:var(--border2)}
+.empty-state{text-align:center;padding:32px 20px;color:var(--muted)}
+.empty-icon{font-size:32px;margin-bottom:10px}
+.empty-title{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.empty-body{font-size:12px;line-height:1.5}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.scr.show>*{animation:fadeUp .3s ease both}
+.scr.show>*:nth-child(2){animation-delay:.04s}
+.scr.show>*:nth-child(3){animation-delay:.08s}
+.scr.show>*:nth-child(4){animation-delay:.12s}
+.scr.show>*:nth-child(5){animation-delay:.16s}
+.how-it-works{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r16);padding:14px;margin-bottom:16px}
+.how-title{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;letter-spacing:0.5px}
+.how-steps{display:flex;flex-direction:column;gap:10px}
+.how-step{display:flex;align-items:flex-start;gap:10px}
+.how-num{width:22px;height:22px;border-radius:50%;background:rgba(79,142,247,0.15);border:1px solid rgba(79,142,247,0.3);color:#7eaaff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.how-text{font-size:12px;color:var(--muted);line-height:1.5}
+.how-text b{color:var(--text);font-weight:600}
+</style>
+
+<h2 class="sr-only">Kredify — ZK-powered alternative credit scoring prototype. Connect financial data sources to generate a privacy-preserving TrustScore and unlock loan offers.</h2>
+
+<div id="kr">
+  <div class="topbar">
+    <div class="logo">Kredify <span>Beta</span></div>
+    <div class="pills">
+      <button class="pill on" onclick="nav('connect',this)">Connect</button>
+      <button class="pill" onclick="nav('score',this)">Score</button>
+      <button class="pill" onclick="nav('proof',this)">ZK Proof</button>
+      <button class="pill" onclick="nav('offers',this)">Offers</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 1: CONNECT -->
+  <div id="s-connect" class="scr show">
+    <div class="sh">
+      <div class="tag tag-blue"><div class="dot-pulse"></div> ZK circuit active</div>
+      <h2>Build your credit profile</h2>
+      <p>Connect financial data you already have. Your raw data stays private — only a cryptographic proof is shared with lenders.</p>
+    </div>
+
+    <div class="how-it-works">
+      <div class="how-title">HOW IT WORKS</div>
+      <div class="how-steps">
+        <div class="how-step"><div class="how-num">1</div><div class="how-text"><b>Connect sources</b> — UPI, rent, utilities, chit funds</div></div>
+        <div class="how-step"><div class="how-num">2</div><div class="how-text"><b>ZK proof generated</b> — patterns verified without exposing data</div></div>
+        <div class="how-step"><div class="how-num">3</div><div class="how-text"><b>TrustScore issued</b> — lenders see your score, not your transactions</div></div>
+      </div>
+    </div>
+
+    <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+    <div class="prog-label" id="prog-lbl">Connect at least one source to get started</div>
+
+    <div class="src-grid">
+      <div class="src" id="c-upi" style="--src-color:#4f8ef7" onclick="toggle('upi')">
+        <div class="src-check" id="ck-upi"></div>
+        <span class="src-icon" style="font-size:22px">📱</span>
+        <div class="src-name">UPI History</div>
+        <div class="src-sub">Google Pay · PhonePe · Paytm · 847 txns</div>
+      </div>
+      <div class="src" id="c-rent" style="--src-color:#10d98e" onclick="toggle('rent')">
+        <div class="src-check" id="ck-rent"></div>
+        <span class="src-icon" style="font-size:22px">🏠</span>
+        <div class="src-name">Rent Receipts</div>
+        <div class="src-sub">36 months on-time payments</div>
+      </div>
+      <div class="src" id="c-util" style="--src-color:#f59e0b" onclick="toggle('util')">
+        <div class="src-check" id="ck-util"></div>
+        <span class="src-icon" style="font-size:22px">⚡</span>
+        <div class="src-name">Utility Bills</div>
+        <div class="src-sub">Electricity · water · gas · 0 missed</div>
+      </div>
+      <div class="src" id="c-chit" style="--src-color:#8b5cf6" onclick="toggle('chit')">
+        <div class="src-check" id="ck-chit"></div>
+        <span class="src-icon" style="font-size:22px">🤝</span>
+        <div class="src-name">Chit Fund</div>
+        <div class="src-sub">2 active chits · ₹2L value</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="gen-btn" onclick="nav('score', document.querySelectorAll('.pill')[1])" disabled>Generate my TrustScore →</button>
+    <div class="notice" style="margin-top:12px;margin-bottom:0">
+      <div class="notice-icon">🔒</div>
+      Your account numbers, transaction amounts, and counterparties are never transmitted. Only a zero-knowledge proof leaves your device.
+    </div>
+  </div>
+
+  <!-- SCREEN 2: TRUST SCORE -->
+  <div id="s-score" class="scr">
+    <div class="sh">
+      <div class="tag tag-amber"><span style="font-size:11px">★</span> Trust profile</div>
+      <h2>Your TrustScore</h2>
+      <p>Built from behavioral data, verified with ZK proofs. Toggle sources below to see how each one contributes.</p>
+    </div>
+
+    <div class="gauge-wrap">
+      <svg width="200" height="115" viewBox="0 0 200 115" style="overflow:visible">
+        <defs>
+          <linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#cd7f32"/>
+            <stop offset="33%" stop-color="#94a3b8"/>
+            <stop offset="66%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#bfdbfe"/>
+          </linearGradient>
+        </defs>
+        <path d="M18 105 A82 82 0 0 1 182 105" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14" stroke-linecap="round"/>
+        <path id="gfill" d="M18 105 A82 82 0 0 1 182 105" fill="none" stroke="url(#gg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="258" stroke-dashoffset="258" style="transition:stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1)"/>
+        <circle cx="100" cy="105" r="7" fill="var(--surface2)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+        <line id="needle" x1="100" y1="105" x2="100" y2="30" stroke="white" stroke-width="2" stroke-linecap="round" style="transform-origin:100px 105px;transform:rotate(-90deg);transition:transform 1.1s cubic-bezier(.4,0,.2,1);opacity:0.7"/>
+        <text id="gscore" x="100" y="96" text-anchor="middle" fill="white" font-family="Plus Jakarta Sans,sans-serif" font-size="24" font-weight="800">0</text>
+        <text x="18" y="122" text-anchor="middle" fill="#cd7f32" font-size="8" font-family="Plus Jakarta Sans,sans-serif" font-weight="600">Bronze</text>
+        <text x="182" y="122" text-anchor="middle" fill="#bfdbfe" font-size="8" font-family="Plus Jakarta Sans,sans-serif" font-weight="600">Platinum</text>
+      </svg>
+    </div>
+
+    <div class="tier-row">
+      <div class="tbadge b" id="tb-b">Bronze</div>
+      <div class="tbadge s" id="tb-s">Silver</div>
+      <div class="tbadge g" id="tb-g">Gold</div>
+      <div class="tbadge p" id="tb-p">Platinum</div>
+    </div>
+
+    <div class="proof-list" id="proof-list"></div>
+
+    <button class="btn btn-primary" onclick="nav('proof', document.querySelectorAll('.pill')[2])">See ZK certificate →</button>
+    <button class="btn btn-ghost" onclick="nav('connect', document.querySelectorAll('.pill')[0])">← Add more sources</button>
+  </div>
+
+  <!-- SCREEN 3: ZK PROOF -->
+  <div id="s-proof" class="scr">
+    <div class="sh">
+      <div class="tag tag-green"><div class="dot-pulse"></div> Proof generated</div>
+      <h2>What lenders see</h2>
+      <p>On the left: your raw private data. On the right: the clean, verified certificate lenders receive. Zero data exposure.</p>
+    </div>
+
+    <div class="split">
+      <div class="panel">
+        <div class="panel-head bad"><div class="ph-dot"></div>Your raw data (private — never shared)</div>
+        <div class="raw-body" id="raw-body"><div style="color:var(--muted);font-size:11px">Connect data sources on the Connect tab to see this.</div></div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:2px 0">
+        <div style="flex:1;height:0.5px;background:var(--border2)"></div>
+        <div style="font-size:11px;color:var(--muted);font-weight:600;padding:4px 10px;background:var(--surface2);border-radius:20px;border:0.5px solid var(--border2)">ZK proof transforms ↓</div>
+        <div style="flex:1;height:0.5px;background:var(--border2)"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head good"><div class="ph-dot"></div>ZK-attested certificate (shared with lenders)</div>
+        <div class="cert-body">
+          <div class="cert-logo">Kredify</div>
+          <div class="cert-verified">ZK Verified ✓</div>
+          <div class="cert-score-box">
+            <div class="cert-num" id="cert-num">—</div>
+            <div class="cert-sub" id="cert-sub">CONNECT SOURCES TO GENERATE SCORE</div>
+          </div>
+          <div id="cert-attrs"></div>
+          <div class="zk-hash" id="zk-hash">Connect sources to generate proof hash</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="nav('offers', document.querySelectorAll('.pill')[3])">View matched loan offers →</button>
+    <button class="btn btn-ghost" onclick="nav('score', document.querySelectorAll('.pill')[1])">← Back to TrustScore</button>
+  </div>
+
+  <!-- SCREEN 4: OFFERS -->
+  <div id="s-offers" class="scr">
+    <div class="sh">
+      <div class="tag tag-green" id="offer-tag"><span style="font-size:11px">★</span> <span id="offer-tag-text">No score yet</span></div>
+      <h2>Matched loan offers</h2>
+      <p>No hard credit pull. Lenders bid on your ZK-attested TrustScore — not your transaction history.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-num" id="st-unlocked" style="color:var(--green)">0</div><div class="stat-lbl">Unlocked</div></div>
+      <div class="stat"><div class="stat-num" id="st-rate" style="color:var(--blue)">—</div><div class="stat-lbl">Best rate</div></div>
+      <div class="stat"><div class="stat-num" id="st-limit" style="color:var(--amber)">—</div><div class="stat-lbl">Max limit</div></div>
+    </div>
+
+    <div class="filter-row">
+      <button class="fbtn on" onclick="filterOffers('all',this)">All offers</button>
+      <button class="fbtn" onclick="filterOffers('bronze',this)">Bronze+</button>
+      <button class="fbtn" onclick="filterOffers('silver',this)">Silver+</button>
+      <button class="fbtn" onclick="filterOffers('gold',this)">Gold+</button>
+    </div>
+
+    <div class="offers" id="offers-list"></div>
+    <button class="btn btn-ghost" onclick="nav('proof', document.querySelectorAll('.pill')[2])">← Back to ZK Proof</button>
+  </div>
+</div>
+
+<script>
+const PROOFS = [
+  {id:'upi', ico:'📱', name:'UPI transactions', detail:'847 txns · 18 months · avg ₹24,310/mo', pts:220, raw:[['acc_id','gpay_7a2f91b8c3d4...'],['txn_count','847'],['avg_monthly','₹24,310'],['top_merchant','Amazon Pay'],['last_txn','2025-04-21']]},
+  {id:'rent', ico:'🏠', name:'Rent payments', detail:'36 months on-time · ₹14,500/mo', pts:190, raw:[['landlord','Sharma R.K.'],['monthly','₹14,500'],['addr','Flat 4B, Prahlad Nagar'],['acct','SBIN0004521'],['last_paid','2025-04-01']]},
+  {id:'util', ico:'⚡', name:'Utility bills', detail:'24 months · 0 late payments', pts:150, raw:[['consumer_no','GJ14500293'],['provider','TORRENT POWER'],['avg_bill','₹1,840'],['missed','0'],['since','2022-08-12']]},
+  {id:'chit', ico:'🤝', name:'Chit fund', detail:'Gold member · 2 chits · ₹2L value', pts:182, raw:[['fund','Laxmi Chit Fund'],['since','2023-01-10'],['value','₹2,00,000'],['installment','₹8,333/mo'],['bids','3 auctions']]},
+];
+
+const OFFERS = [
+  {name:'IndiFi Quick Loan', detail:'Personal · 12–60 months', rate:'10.5%', limit:'₹3L', tier:'bronze', color:'#cd7f32', ico:'🏦'},
+  {name:'KreditBee Flex', detail:'Revolving credit line', rate:'14%', limit:'₹1.5L', tier:'bronze', color:'#94a3b8', ico:'💳'},
+  {name:'Lendingkart Business', detail:'MSME working capital', rate:'18%', limit:'₹10L', tier:'silver', color:'#94a3b8', ico:'🏪'},
+  {name:'Stashfin Select', detail:'Low-rate personal · Gold tier', rate:'8.9%', limit:'₹5L', tier:'gold', color:'#f59e0b', ico:'🌟'},
+  {name:'Poonawalla Fincorp', detail:'Premium personal · Platinum only', rate:'7.2%', limit:'₹25L', tier:'platinum', color:'#bfdbfe', ico:'🏛️'},
+];
+
+const TIERS = ['none','bronze','silver','gold','platinum'];
+const st = {on: new Set()};
+
+function calcScore(){ return [...st.on].reduce((a,id)=>{const p=PROOFS.find(x=>x.id===id);return a+(p?p.pts:0)},0); }
+function getTier(s){ if(s>=800)return 'platinum'; if(s>=600)return 'gold'; if(s>=350)return 'silver'; if(s>0)return 'bronze'; return 'none'; }
+
+function toggle(id){
+  const card=document.getElementById('c-'+id), ck=document.getElementById('ck-'+id);
+  if(st.on.has(id)){st.on.delete(id);card.classList.remove('on');ck.textContent='';}
+  else{st.on.add(id);card.classList.add('on');ck.textContent='✓';}
+  const pct=Math.round(st.on.size/4*100);
+  document.getElementById('prog').style.width=pct+'%';
+  const lbls=['Connect at least one source to get started','1 source connected — good start!','2 sources — building your profile','3 sources — almost there!','All sources connected — maximum score!'];
+  document.getElementById('prog-lbl').textContent=lbls[st.on.size];
+  document.getElementById('gen-btn').disabled=st.on.size===0;
+  refreshAll();
+}
+
+function refreshAll(){
+  const score=calcScore(), tier=getTier(score), tidx=TIERS.indexOf(tier);
+  refreshScore(score,tier);
+  refreshProofList();
+  refreshProof(score,tier);
+  refreshOffers(score,tier,tidx);
+}
+
+function refreshScore(score,tier){
+  const pct=Math.min(score/742,1);
+  document.getElementById('gfill').style.strokeDashoffset=258*(1-pct);
+  document.getElementById('needle').style.transform=`rotate(${-90+pct*180}deg)`;
+  animateNum('gscore',score);
+  ['b','s','g','p'].forEach((t,i)=>{
+    document.getElementById('tb-'+t).classList.toggle('on',['bronze','silver','gold','platinum'][i]===tier);
+  });
+}
+
+function animateNum(id, target){
+  const el=document.getElementById(id); if(!el)return;
+  let cur=parseInt(el.textContent)||0;
+  const step=Math.max(1,Math.ceil(Math.abs(target-cur)/20));
+  const iv=setInterval(()=>{
+    if(cur<target)cur=Math.min(cur+step,target);
+    else if(cur>target)cur=Math.max(cur-step,target);
+    el.textContent=cur;
+    if(cur===target)clearInterval(iv);
+  },25);
+}
+
+function refreshProofList(){
+  const el=document.getElementById('proof-list'); if(!el)return;
+  el.innerHTML=PROOFS.map(p=>{
+    const on=st.on.has(p.id);
+    return `<div class="proof-row ${on?'on':''}">
+      <div class="proof-ico">${p.ico}</div>
+      <div class="proof-info">
+        <div class="proof-name">${p.name}</div>
+        <div class="proof-detail">${p.detail}</div>
+      </div>
+      <div class="proof-pts">${on?'+'+p.pts:'—'}</div>
+      <div class="toggle ${on?'on':''}" onclick="toggle('${p.id}')"></div>
+    </div>`;
+  }).join('');
+}
+
+function refreshProof(score,tier){
+  const raw=document.getElementById('raw-body');
+  const active=PROOFS.filter(p=>st.on.has(p.id));
+  if(raw){
+    if(!active.length){raw.innerHTML='<div style="color:var(--muted);font-size:11px">Connect data sources on the Connect tab to see raw data.</div>';return;}
+    raw.innerHTML=active.map(p=>`
+      <div class="raw-group">
+        <div class="raw-source">${p.ico} ${p.name}</div>
+        ${p.raw.map(([k,v])=>`<div class="raw-line"><span class="raw-k">${k}:</span><span class="raw-v">${v}</span></div>`).join('')}
+      </div>`).join('');
+  }
+  const cn=document.getElementById('cert-num'), cs=document.getElementById('cert-sub');
+  if(cn) cn.textContent=score||'—';
+  if(cs){
+    const tLabel=tier==='none'?'Connect sources to generate score':tier.charAt(0).toUpperCase()+tier.slice(1)+' Tier · Behavioral Credit';
+    cs.textContent=tLabel.toUpperCase();
+  }
+  const ca=document.getElementById('cert-attrs');
+  if(ca){
+    ca.innerHTML=active.map(p=>`<div class="cert-attr"><span class="cert-attr-k">${p.ico} ${p.name}</span><span class="cert-attr-v">Verified ✓</span></div>`).join('');
+  }
+  const zh=document.getElementById('zk-hash');
+  if(zh){
+    if(active.length){
+      const h='zk:0x'+Array.from({length:40},()=>Math.floor(Math.random()*16).toString(16)).join('');
+      zh.textContent=h;
+    } else {
+      zh.textContent='Connect sources to generate proof hash';
+    }
+  }
+}
+
+function refreshOffers(score,tier,tidx){
+  const tag=document.getElementById('offer-tag-text');
+  if(tag) tag.textContent=score>0?`TrustScore ${score} · ${tier.charAt(0).toUpperCase()+tier.slice(1)}`:'No score yet — connect sources';
+  const unlocked=OFFERS.filter(o=>tidx>=TIERS.indexOf(o.tier));
+  document.getElementById('st-unlocked').textContent=unlocked.length;
+  const rates=unlocked.map(o=>parseFloat(o.rate)).sort((a,b)=>a-b);
+  document.getElementById('st-rate').textContent=rates.length?rates[0].toFixed(1)+'%':'—';
+  document.getElementById('st-limit').textContent=unlocked.length?'₹25L':'—';
+  renderOffers('all',tidx);
+}
+
+function renderOffers(filter,tidx){
+  if(tidx===undefined){const score=calcScore();tidx=TIERS.indexOf(getTier(score));}
+  const el=document.getElementById('offers-list'); if(!el)return;
+  const filtered=filter==='all'?OFFERS:OFFERS.filter(o=>TIERS.indexOf(o.tier)>=TIERS.indexOf(filter));
+  if(!filtered.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🔒</div><div class="empty-title">No offers at this tier</div><div class="empty-body">Add more data sources to unlock higher tier offers.</div></div>';return;}
+  el.innerHTML=filtered.map(o=>{
+    const locked=tidx<TIERS.indexOf(o.tier);
+    return `<div class="offer ${locked?'locked':''}" style="--oc:${o.color}">
+      <div class="offer-ico">${o.ico}</div>
+      <div class="offer-info">
+        <div class="offer-name">${o.name}</div>
+        <div class="offer-detail">${o.detail}</div>
+      </div>
+      <div class="offer-rate">
+        <div class="offer-rate-num" style="color:${locked?'var(--muted)':'var(--green)'}">${o.rate}</div>
+        <div class="offer-rate-lbl">p.a. · up to ${o.limit}</div>
+      </div>
+      <div class="offer-badge ${locked?'ob-off':'ob-on'}">${locked?o.tier+' req.':'Unlocked'}</div>
+    </div>`;
+  }).join('');
+}
+
+function filterOffers(f, btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const score=calcScore(), tidx=TIERS.indexOf(getTier(score));
+  renderOffers(f, tidx);
+}
+
+function nav(id, btn){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('show'));
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  document.getElementById('s-'+id).classList.add('show');
+  if(btn) btn.classList.add('on');
+  if(id==='score') refreshScore(calcScore(), getTier(calcScore()));
+  if(id==='proof') refreshProof(calcScore(), getTier(calcScore()));
+  if(id==='offers'){const s=calcScore();refreshOffers(s,getTier(s),TIERS.indexOf(getTier(s)));}
+}
+
+refreshAll();
+</script>

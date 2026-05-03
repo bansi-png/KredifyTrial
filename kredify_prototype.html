@@ -1,0 +1,1168 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --k-bg: #0a0f1e;
+    --k-surface: #111827;
+    --k-surface2: #1a2235;
+    --k-border: rgba(255,255,255,0.08);
+    --k-border2: rgba(255,255,255,0.15);
+    --k-text: #f0f4ff;
+    --k-muted: #8896b3;
+    --k-accent: #4f8ef7;
+    --k-accent2: #7c5cfc;
+    --k-gold: #f5a623;
+    --k-green: #22d68e;
+    --k-bronze: #cd7f32;
+    --k-silver: #aab4be;
+    --k-platinum: #e0f2fe;
+    --k-red: #ff5a5a;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  #kredify-root {
+    font-family: var(--font-body);
+    background: var(--k-bg);
+    color: var(--k-text);
+    min-height: 600px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 0.5px solid var(--k-border);
+    background: rgba(10,15,30,0.9);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4f8ef7, #7c5cfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--k-surface);
+    border-radius: 10px;
+    padding: 4px;
+    border: 0.5px solid var(--k-border);
+  }
+
+  .nav-tab {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 7px;
+    border: none;
+    background: transparent;
+    color: var(--k-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-tab.active {
+    background: var(--k-accent2);
+    color: white;
+  }
+
+  .nav-tab:hover:not(.active) {
+    color: var(--k-text);
+    background: var(--k-surface2);
+  }
+
+  .screen { display: none; padding: 24px; }
+  .screen.active { display: block; }
+
+  /* ── ONBOARDING ── */
+  .onboard-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .onboard-header h1 {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .onboard-header p {
+    font-size: 14px;
+    color: var(--k-muted);
+    font-weight: 300;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #4f8ef7, #7c5cfc, #22d68e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .steps-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+
+  .step-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--k-surface2);
+    border: 1.5px solid var(--k-border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--k-muted);
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .step-dot.active {
+    border-color: var(--k-accent);
+    color: var(--k-accent);
+    background: rgba(79,142,247,0.1);
+    box-shadow: 0 0 0 4px rgba(79,142,247,0.15);
+  }
+
+  .step-dot.done {
+    border-color: var(--k-green);
+    color: var(--k-green);
+    background: rgba(34,214,142,0.1);
+  }
+
+  .step-line {
+    width: 40px;
+    height: 1.5px;
+    background: var(--k-border2);
+    transition: background 0.3s;
+  }
+
+  .step-line.done { background: var(--k-green); }
+
+  .data-sources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .data-card {
+    background: var(--k-surface);
+    border: 1.5px solid var(--k-border);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .data-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-color, var(--k-accent));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .data-card:hover { border-color: var(--k-border2); transform: translateY(-1px); }
+
+  .data-card.connected {
+    border-color: var(--k-green);
+    background: rgba(34,214,142,0.05);
+  }
+
+  .data-card.connected::before { opacity: 1; background: var(--k-green); }
+
+  .data-card-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .data-card-name {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .data-card-desc {
+    font-size: 11px;
+    color: var(--k-muted);
+    font-weight: 300;
+  }
+
+  .data-card-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--k-border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: all 0.3s;
+  }
+
+  .data-card.connected .data-card-status {
+    background: var(--k-green);
+    border-color: var(--k-green);
+    color: #0a0f1e;
+    font-weight: 700;
+  }
+
+  .btn-primary {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, var(--k-accent), var(--k-accent2));
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 0.2px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .zk-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(79,142,247,0.08);
+    border: 0.5px solid rgba(79,142,247,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #7eaaff;
+  }
+
+  .zk-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--k-accent);
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* ── TRUST SCORE ── */
+  .gauge-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .gauge-svg { overflow: visible; }
+
+  .tier-badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .tier-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    transition: all 0.3s;
+    opacity: 0.35;
+  }
+
+  .tier-badge.active { opacity: 1; }
+  .tier-badge.bronze { border-color: var(--k-bronze); color: var(--k-bronze); }
+  .tier-badge.bronze.active { background: rgba(205,127,50,0.15); }
+  .tier-badge.silver { border-color: var(--k-silver); color: var(--k-silver); }
+  .tier-badge.silver.active { background: rgba(170,180,190,0.15); }
+  .tier-badge.gold { border-color: var(--k-gold); color: var(--k-gold); }
+  .tier-badge.gold.active { background: rgba(245,166,35,0.15); }
+  .tier-badge.platinum { border-color: var(--k-platinum); color: var(--k-platinum); }
+  .tier-badge.platinum.active { background: rgba(224,242,254,0.15); }
+
+  .proof-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .proof-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--k-surface);
+    border: 0.5px solid var(--k-border);
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+
+  .proof-icon { font-size: 18px; width: 28px; text-align: center; }
+
+  .proof-info { flex: 1; }
+
+  .proof-name {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .proof-detail {
+    font-size: 11px;
+    color: var(--k-muted);
+    font-weight: 300;
+  }
+
+  .proof-pts {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--k-green);
+  }
+
+  .proof-toggle {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: var(--k-surface2);
+    border: 1.5px solid var(--k-border2);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .proof-toggle::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--k-muted);
+    top: 2px;
+    left: 2px;
+    transition: all 0.25s;
+  }
+
+  .proof-toggle.on {
+    background: rgba(34,214,142,0.2);
+    border-color: var(--k-green);
+  }
+
+  .proof-toggle.on::after {
+    background: var(--k-green);
+    left: 18px;
+  }
+
+  /* ── SPLIT SCREEN ── */
+  .split-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .split-panel {
+    background: var(--k-surface);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 0.5px solid var(--k-border);
+  }
+
+  .split-header {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid var(--k-border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .split-header.raw { color: var(--k-red); }
+  .split-header.clean { color: var(--k-green); }
+
+  .raw-data {
+    padding: 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #6b7a99;
+    line-height: 1.9;
+    overflow: hidden;
+  }
+
+  .raw-line { display: flex; gap: 8px; }
+  .raw-key { color: #4a5580; }
+  .raw-val { color: #637098; word-break: break-all; }
+
+  .cert-panel { padding: 14px; }
+
+  .cert-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .cert-logo {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4f8ef7, #7c5cfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cert-verified {
+    font-size: 9px;
+    background: rgba(34,214,142,0.15);
+    color: var(--k-green);
+    border: 0.5px solid var(--k-green);
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .cert-score {
+    text-align: center;
+    margin-bottom: 14px;
+    padding: 14px;
+    background: var(--k-surface2);
+    border-radius: 10px;
+  }
+
+  .cert-score-num {
+    font-family: var(--font-head);
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--k-gold), #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .cert-score-label {
+    font-size: 10px;
+    color: var(--k-muted);
+    margin-top: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cert-attrs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cert-attr {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 6px 0;
+    border-bottom: 0.5px solid var(--k-border);
+  }
+
+  .cert-attr-label { color: var(--k-muted); }
+  .cert-attr-val { font-weight: 500; color: var(--k-green); }
+
+  .zk-hash {
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 9px;
+    color: rgba(79,142,247,0.5);
+    word-break: break-all;
+    text-align: center;
+    padding: 6px;
+    background: rgba(79,142,247,0.05);
+    border-radius: 6px;
+    border: 0.5px solid rgba(79,142,247,0.15);
+  }
+
+  /* ── MARKETPLACE ── */
+  .marketplace-header {
+    margin-bottom: 20px;
+  }
+
+  .score-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--k-gold);
+    margin-bottom: 12px;
+  }
+
+  .offers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .offer-card {
+    background: var(--k-surface);
+    border: 0.5px solid var(--k-border);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--offer-color, var(--k-accent));
+  }
+
+  .offer-card:hover {
+    border-color: var(--k-border2);
+    transform: translateX(3px);
+  }
+
+  .offer-card.locked {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+  }
+
+  .offer-lender {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--k-surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .offer-info { flex: 1; }
+
+  .offer-name {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  .offer-detail {
+    font-size: 11px;
+    color: var(--k-muted);
+    font-weight: 300;
+  }
+
+  .offer-rate {
+    text-align: right;
+  }
+
+  .offer-rate-num {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--k-green);
+    line-height: 1;
+  }
+
+  .offer-rate-label {
+    font-size: 10px;
+    color: var(--k-muted);
+  }
+
+  .offer-badge {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .badge-unlocked { background: rgba(34,214,142,0.15); color: var(--k-green); border: 0.5px solid rgba(34,214,142,0.3); }
+  .badge-locked { background: rgba(255,90,90,0.1); color: var(--k-red); border: 0.5px solid rgba(255,90,90,0.2); }
+
+  .tier-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .tier-btn {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--k-border2);
+    background: transparent;
+    color: var(--k-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tier-btn.active {
+    background: var(--k-surface2);
+    color: var(--k-text);
+    border-color: var(--k-border2);
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    background: var(--k-surface);
+    border: 0.5px solid var(--k-border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--k-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .screen.active > * {
+    animation: fadeUp 0.35s ease both;
+  }
+
+  .screen.active > *:nth-child(2) { animation-delay: 0.05s; }
+  .screen.active > *:nth-child(3) { animation-delay: 0.10s; }
+  .screen.active > *:nth-child(4) { animation-delay: 0.15s; }
+  .screen.active > *:nth-child(5) { animation-delay: 0.20s; }
+</style>
+
+<div id="kredify-root">
+  <nav class="nav">
+    <div class="nav-logo">Kredify</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showScreen('onboard')">Connect</button>
+      <button class="nav-tab" onclick="showScreen('score')">TrustScore</button>
+      <button class="nav-tab" onclick="showScreen('split')">ZK Proof</button>
+      <button class="nav-tab" onclick="showScreen('market')">Lenders</button>
+    </div>
+  </nav>
+
+  <!-- SCREEN 1: ONBOARDING -->
+  <div id="screen-onboard" class="screen active">
+    <div class="onboard-header">
+      <h1>Get credit for <span class="gradient-text">who you are</span></h1>
+      <p>Connect your financial data. We never share it — only your proof.</p>
+    </div>
+
+    <div class="steps-progress" id="steps-progress">
+      <div class="step-dot active" id="sdot-1">1</div>
+      <div class="step-line" id="sline-1"></div>
+      <div class="step-dot" id="sdot-2">2</div>
+      <div class="step-line" id="sline-2"></div>
+      <div class="step-dot" id="sdot-3">3</div>
+      <div class="step-line" id="sline-3"></div>
+      <div class="step-dot" id="sdot-4">4</div>
+    </div>
+
+    <div class="zk-notice">
+      <div class="zk-dot"></div>
+      <span>ZK circuit active — your raw data never leaves your device. Only proofs are transmitted.</span>
+    </div>
+
+    <div class="data-sources-grid">
+      <div class="data-card" id="card-upi" style="--card-color:#4f8ef7" onclick="toggleCard('upi')">
+        <div class="data-card-status" id="status-upi"></div>
+        <span class="data-card-icon">📱</span>
+        <div class="data-card-name">UPI History</div>
+        <div class="data-card-desc">Google Pay, PhonePe, Paytm transactions</div>
+      </div>
+      <div class="data-card" id="card-rent" style="--card-color:#22d68e" onclick="toggleCard('rent')">
+        <div class="data-card-status" id="status-rent"></div>
+        <span class="data-card-icon">🏠</span>
+        <div class="data-card-name">Rent Receipts</div>
+        <div class="data-card-desc">Upload monthly rent payment records</div>
+      </div>
+      <div class="data-card" id="card-utility" style="--card-color:#f5a623" onclick="toggleCard('utility')">
+        <div class="data-card-status" id="status-utility"></div>
+        <span class="data-card-icon">⚡</span>
+        <div class="data-card-name">Utility Bills</div>
+        <div class="data-card-desc">Electricity, water, gas payment history</div>
+      </div>
+      <div class="data-card" id="card-chit" style="--card-color:#7c5cfc" onclick="toggleCard('chit')">
+        <div class="data-card-status" id="status-chit"></div>
+        <span class="data-card-icon">🤝</span>
+        <div class="data-card-name">Chit Fund</div>
+        <div class="data-card-desc">Community savings group participation</div>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="btn-generate" onclick="handleGenerate()" disabled>
+      Generate ZK TrustScore →
+    </button>
+  </div>
+
+  <!-- SCREEN 2: TRUST SCORE -->
+  <div id="screen-score" class="screen">
+    <div style="text-align:center;margin-bottom:20px;">
+      <p style="font-size:12px;color:var(--k-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Your TrustScore</p>
+      <h2 style="font-family:var(--font-head);font-size:22px;font-weight:800;letter-spacing:-0.5px;">Behavioral Credit Profile</h2>
+    </div>
+
+    <div class="gauge-wrap">
+      <svg class="gauge-svg" width="220" height="130" viewBox="0 0 220 130">
+        <defs>
+          <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#cd7f32"/>
+            <stop offset="33%" style="stop-color:#aab4be"/>
+            <stop offset="66%" style="stop-color:#f5a623"/>
+            <stop offset="100%" style="stop-color:#e0f2fe"/>
+          </linearGradient>
+          <linearGradient id="needleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#fff"/>
+            <stop offset="100%" style="stop-color:#4f8ef7"/>
+          </linearGradient>
+        </defs>
+        <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="18" stroke-linecap="round"/>
+        <path id="gauge-fill" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="url(#gaugeGrad)" stroke-width="18" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" style="transition:stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1)"/>
+        <circle cx="110" cy="110" r="8" fill="var(--k-surface2)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <line id="needle" x1="110" y1="110" x2="110" y2="30" stroke="url(#needleGrad)" stroke-width="2.5" stroke-linecap="round" style="transform-origin:110px 110px;transform:rotate(-90deg);transition:transform 1s cubic-bezier(0.4,0,0.2,1)"/>
+        <text id="gauge-score" x="110" y="100" text-anchor="middle" fill="white" font-family="Syne,sans-serif" font-size="26" font-weight="800">0</text>
+        <text x="20" y="128" text-anchor="middle" fill="#cd7f32" font-size="8" font-family="DM Sans,sans-serif">Bronze</text>
+        <text x="200" y="128" text-anchor="middle" fill="#e0f2fe" font-size="8" font-family="DM Sans,sans-serif">Platinum</text>
+      </svg>
+    </div>
+
+    <div class="tier-badges">
+      <div class="tier-badge bronze" id="tier-bronze">Bronze</div>
+      <div class="tier-badge silver" id="tier-silver">Silver</div>
+      <div class="tier-badge gold" id="tier-gold">Gold</div>
+      <div class="tier-badge platinum" id="tier-platinum">Platinum</div>
+    </div>
+
+    <div class="proof-items" id="proof-items">
+      <!-- Injected by JS -->
+    </div>
+
+    <button class="btn-primary" onclick="showScreen('split')">View ZK Certificate →</button>
+  </div>
+
+  <!-- SCREEN 3: ZK SPLIT VIEW -->
+  <div id="screen-split" class="screen">
+    <div style="margin-bottom:20px;">
+      <p style="font-size:12px;color:var(--k-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Privacy by design</p>
+      <h2 style="font-family:var(--font-head);font-size:22px;font-weight:800;letter-spacing:-0.5px;">What lenders see</h2>
+    </div>
+
+    <div class="split-container">
+      <div class="split-panel">
+        <div class="split-header raw">
+          <span style="font-size:14px">⚠</span> Raw data (hidden)
+        </div>
+        <div class="raw-data" id="raw-data-panel">
+          <!-- injected -->
+        </div>
+      </div>
+      <div class="split-panel">
+        <div class="split-header clean">
+          <span style="font-size:14px">✓</span> ZK certificate
+        </div>
+        <div class="cert-panel">
+          <div class="cert-header">
+            <span class="cert-logo">Kredify</span>
+            <span class="cert-verified">ZK Verified</span>
+          </div>
+          <div class="cert-score">
+            <div class="cert-score-num" id="cert-score-num">742</div>
+            <div class="cert-score-label">TrustScore · Gold tier</div>
+          </div>
+          <div class="cert-attrs" id="cert-attrs">
+            <!-- injected -->
+          </div>
+          <div class="zk-hash" id="zk-hash"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zk-notice">
+      <div class="zk-dot"></div>
+      <span>Lenders receive only the attestation proof — never your account numbers, amounts, or counterparties.</span>
+    </div>
+
+    <button class="btn-primary" onclick="showScreen('market')">See Loan Offers →</button>
+  </div>
+
+  <!-- SCREEN 4: MARKETPLACE -->
+  <div id="screen-market" class="screen">
+    <div class="marketplace-header">
+      <div class="score-chip">
+        <span>★</span>
+        <span id="market-score-chip">TrustScore 742 · Gold</span>
+      </div>
+      <h2 style="font-family:var(--font-head);font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-bottom:4px;">Matched loan offers</h2>
+      <p style="font-size:13px;color:var(--k-muted);font-weight:300;">Based on your ZK-attested profile. No hard credit pull.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-offers" style="color:var(--k-green)">0</div>
+        <div class="stat-label">Offers unlocked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--k-accent)" id="stat-rate">—</div>
+        <div class="stat-label">Best rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--k-gold)" id="stat-limit">—</div>
+        <div class="stat-label">Max limit</div>
+      </div>
+    </div>
+
+    <div class="tier-filter">
+      <button class="tier-btn active" onclick="filterOffers('all', this)">All</button>
+      <button class="tier-btn" onclick="filterOffers('bronze', this)">Bronze+</button>
+      <button class="tier-btn" onclick="filterOffers('silver', this)">Silver+</button>
+      <button class="tier-btn" onclick="filterOffers('gold', this)">Gold+</button>
+    </div>
+
+    <div class="offers-grid" id="offers-grid">
+      <!-- injected -->
+    </div>
+  </div>
+</div>
+
+<script>
+const state = {
+  connected: new Set(),
+  score: 0,
+  tier: 'none'
+};
+
+const proofData = [
+  { id:'upi', icon:'📱', name:'UPI Transactions', detail:'847 transactions · 18 months', pts:220, raw: [
+    ['acc_id','gpay_7a2f91b8c3...'],['txn_count','847'],['avg_monthly','₹24,310'],['top_merchant','Amazon Pay'],['lat_txn','2025-04-21T09:14']
+  ]},
+  { id:'rent', icon:'🏠', name:'Rent Payments', detail:'On-time for 36 months', pts:190, raw: [
+    ['landlord','Sharma, R.K.'],['addr','Flat 4B, Prahlad Nagar, Ahmedabad'],['monthly_amt','₹14,500'],['acct_no','SBIN0004521'],['last_paid','2025-04-01']
+  ]},
+  { id:'utility', icon:'⚡', name:'Utility Bills', detail:'Zero late payments · 24 months', pts:150, raw: [
+    ['consumer_no','GJ14500293'],['provider','TORRENT POWER LTD'],['avg_bill','₹1,840'],['missed_payments','0'],['connection_date','2022-08-12']
+  ]},
+  { id:'chit', icon:'🤝', name:'Chit Fund', detail:'Gold tier member · 2 active chits', pts:182, raw: [
+    ['fund_name','Laxmi Chit Fund Pvt Ltd'],['member_since','2023-01-10'],['chit_value','₹2,00,000'],['installment','₹8,333/mo'],['bid_history','3 auctions']
+  ]},
+];
+
+const offers = [
+  { lender:'IndiFi', icon:'🏦', name:'IndiFi Quick Loan', detail:'Personal loan · 12–60 months', rate:'10.5%', limit:'₹3L', tier:'bronze', color:'#cd7f32', locked:false },
+  { lender:'KreditBee', icon:'💳', name:'KreditBee Flex', detail:'Instant credit line · revolving', rate:'14%', limit:'₹1.5L', tier:'bronze', color:'#cd7f32', locked:false },
+  { lender:'Lendingkart', icon:'🏪', name:'Lendingkart Business', detail:'MSME working capital', rate:'18%', limit:'₹10L', tier:'silver', color:'var(--k-silver)', locked:false },
+  { lender:'Stashfin', icon:'🌟', name:'Stashfin Select', detail:'Low-rate personal · Gold exclusive', rate:'8.9%', limit:'₹5L', tier:'gold', color:'var(--k-gold)', locked:false },
+  { lender:'Poonawalla', icon:'🏛️', name:'Poonawalla Fincorp', detail:'Premium personal · Platinum only', rate:'7.2%', limit:'₹25L', tier:'platinum', color:'var(--k-platinum)', locked:true },
+];
+
+function getTier(score) {
+  if (score >= 850) return 'platinum';
+  if (score >= 700) return 'gold';
+  if (score >= 500) return 'silver';
+  if (score > 0) return 'bronze';
+  return 'none';
+}
+
+function calcScore() {
+  let s = 0;
+  proofData.forEach(p => { if (state.connected.has(p.id)) s += p.pts; });
+  return s;
+}
+
+function toggleCard(id) {
+  const card = document.getElementById('card-' + id);
+  const status = document.getElementById('status-' + id);
+  const isConn = state.connected.has(id);
+  if (isConn) {
+    state.connected.delete(id);
+    card.classList.remove('connected');
+    status.textContent = '';
+  } else {
+    state.connected.add(id);
+    card.classList.add('connected');
+    status.textContent = '✓';
+  }
+  const count = state.connected.size;
+  const steps = ['sdot-1','sdot-2','sdot-3','sdot-4'];
+  const lines = ['sline-1','sline-2','sline-3'];
+  steps.forEach((s,i) => {
+    const el = document.getElementById(s);
+    el.classList.remove('active','done');
+    if (i < count) el.classList.add('done');
+    else if (i === count) el.classList.add('active');
+  });
+  lines.forEach((l,i) => {
+    const el = document.getElementById(l);
+    el.classList.toggle('done', i < count - 0);
+  });
+  document.getElementById('btn-generate').disabled = count === 0;
+  state.score = calcScore();
+  state.tier = getTier(state.score);
+  updateScoreScreen();
+  updateSplitScreen();
+  updateMarketScreen();
+}
+
+function handleGenerate() {
+  showScreen('score');
+}
+
+function updateScoreScreen() {
+  const score = state.score;
+  const tier = state.tier;
+  const maxScore = 742;
+  const pct = Math.min(score / maxScore, 1);
+  const arcLen = 283;
+  const offset = arcLen * (1 - pct);
+  const el = document.getElementById('gauge-fill');
+  if (el) el.style.strokeDashoffset = offset;
+  const needle = document.getElementById('needle');
+  if (needle) {
+    const deg = -90 + pct * 180;
+    needle.style.transform = `rotate(${deg}deg)`;
+  }
+  const scoreEl = document.getElementById('gauge-score');
+  if (scoreEl) scoreEl.textContent = score;
+  ['bronze','silver','gold','platinum'].forEach(t => {
+    const b = document.getElementById('tier-' + t);
+    if (b) b.classList.toggle('active', t === tier);
+  });
+  const container = document.getElementById('proof-items');
+  if (!container) return;
+  container.innerHTML = '';
+  proofData.forEach(p => {
+    const on = state.connected.has(p.id);
+    container.innerHTML += `
+      <div class="proof-row">
+        <div class="proof-icon">${p.icon}</div>
+        <div class="proof-info">
+          <div class="proof-name">${p.name}</div>
+          <div class="proof-detail">${p.detail}</div>
+        </div>
+        <div class="proof-pts">${on ? '+' + p.pts : '—'}</div>
+        <div class="proof-toggle ${on ? 'on' : ''}" onclick="toggleCard('${p.id}')"></div>
+      </div>`;
+  });
+}
+
+function updateSplitScreen() {
+  const raw = document.getElementById('raw-data-panel');
+  if (raw) {
+    let html = '';
+    proofData.filter(p => state.connected.has(p.id)).forEach(p => {
+      html += `<div style="margin-bottom:8px;padding-bottom:8px;border-bottom:0.5px solid rgba(255,255,255,0.05)">`;
+      html += `<div style="color:#4f7aa0;font-size:9px;margin-bottom:4px;"># ${p.name}</div>`;
+      p.raw.forEach(([k,v]) => {
+        html += `<div class="raw-line"><span class="raw-key">${k}:</span><span class="raw-val">${v}</span></div>`;
+      });
+      html += '</div>';
+    });
+    if (!html) html = '<div style="color:var(--k-muted);font-size:11px;padding:8px">No data sources connected.</div>';
+    raw.innerHTML = html;
+  }
+  const score = state.score;
+  const tier = state.tier;
+  const tierLabel = tier.charAt(0).toUpperCase() + tier.slice(1);
+  const certScore = document.getElementById('cert-score-num');
+  if (certScore) certScore.textContent = score;
+  const certLabel = certScore && certScore.parentElement.querySelector('.cert-score-label');
+  if (certLabel) certLabel.textContent = `TrustScore · ${tierLabel} tier`;
+  const attrs = document.getElementById('cert-attrs');
+  if (attrs) {
+    const connected = proofData.filter(p => state.connected.has(p.id));
+    let html = '';
+    connected.forEach(p => {
+      html += `<div class="cert-attr"><span class="cert-attr-label">${p.icon} ${p.name}</span><span class="cert-attr-val">Verified ✓</span></div>`;
+    });
+    if (!html) html = '<div style="color:var(--k-muted);font-size:11px">No attestations yet.</div>';
+    attrs.innerHTML = html;
+  }
+  const hash = document.getElementById('zk-hash');
+  if (hash && state.connected.size > 0) {
+    const fakeHash = 'zk:' + Array.from({length:32},()=>Math.floor(Math.random()*16).toString(16)).join('');
+    hash.textContent = fakeHash;
+  } else if (hash) {
+    hash.textContent = 'Connect data sources to generate proof';
+  }
+}
+
+function updateMarketScreen() {
+  const score = state.score;
+  const tier = state.tier;
+  const tierOrder = ['none','bronze','silver','gold','platinum'];
+  const tierIdx = tierOrder.indexOf(tier);
+  const tierLabel = tier === 'none' ? 'None' : tier.charAt(0).toUpperCase() + tier.slice(1);
+  const chip = document.getElementById('market-score-chip');
+  if (chip) chip.textContent = `TrustScore ${score} · ${tierLabel}`;
+  const unlocked = offers.filter(o => tierIdx >= tierOrder.indexOf(o.tier) && !o.locked);
+  const statOffers = document.getElementById('stat-offers');
+  if (statOffers) statOffers.textContent = unlocked.length;
+  const statRate = document.getElementById('stat-rate');
+  if (statRate) statRate.textContent = unlocked.length ? unlocked.sort((a,b)=>parseFloat(a.rate)-parseFloat(b.rate))[0].rate : '—';
+  const statLimit = document.getElementById('stat-limit');
+  if (statLimit) statLimit.textContent = unlocked.length ? '₹5L' : '—';
+  renderOffers('all');
+}
+
+function renderOffers(filter) {
+  const tierOrder = ['none','bronze','silver','gold','platinum'];
+  const tierIdx = tierOrder.indexOf(state.tier);
+  const grid = document.getElementById('offers-grid');
+  if (!grid) return;
+  let html = '';
+  offers.forEach(o => {
+    const isUnlocked = !o.locked && tierIdx >= tierOrder.indexOf(o.tier);
+    const show = filter === 'all' || o.tier === filter || (filter !== 'all' && tierOrder.indexOf(o.tier) >= tierOrder.indexOf(filter));
+    if (!show) return;
+    html += `
+      <div class="offer-card ${isUnlocked ? '' : 'locked'}" style="--offer-color:${o.color}">
+        <div class="offer-lender">${o.icon}</div>
+        <div class="offer-info">
+          <div class="offer-name">${o.name}</div>
+          <div class="offer-detail">${o.detail}</div>
+        </div>
+        <div class="offer-rate">
+          <div class="offer-rate-num" style="color:${isUnlocked ? 'var(--k-green)' : 'var(--k-muted)'}">${o.rate}</div>
+          <div class="offer-rate-label">p.a. · up to ${o.limit}</div>
+        </div>
+        <div class="offer-badge ${isUnlocked ? 'badge-unlocked' : 'badge-locked'}">${isUnlocked ? 'Unlocked' : o.tier}</div>
+      </div>`;
+  });
+  if (!html) html = '<div style="color:var(--k-muted);font-size:13px;text-align:center;padding:20px">Connect data sources to unlock offers.</div>';
+  grid.innerHTML = html;
+}
+
+function filterOffers(tier, btn) {
+  document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderOffers(tier);
+}
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  const tabs = ['onboard','score','split','market'];
+  const idx = tabs.indexOf(name);
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  if (name === 'score') updateScoreScreen();
+  if (name === 'split') updateSplitScreen();
+  if (name === 'market') updateMarketScreen();
+  if (name === 'score' && state.connected.size > 0) {
+    setTimeout(() => {
+      const score = state.score;
+      const maxScore = 742;
+      const pct = Math.min(score / maxScore, 1);
+      const el = document.getElementById('gauge-fill');
+      if (el) el.style.strokeDashoffset = 283 * (1 - pct);
+      const needle = document.getElementById('needle');
+      if (needle) needle.style.transform = `rotate(${-90 + pct * 180}deg)`;
+      let n = 0;
+      const scoreEl = document.getElementById('gauge-score');
+      const interval = setInterval(() => {
+        n = Math.min(n + Math.ceil(score / 30), score);
+        if (scoreEl) scoreEl.textContent = n;
+        if (n >= score) clearInterval(interval);
+      }, 30);
+    }, 100);
+  }
+}
+
+updateScoreScreen();
+updateSplitScreen();
+updateMarketScreen();
+</script>
