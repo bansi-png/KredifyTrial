@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kredify — Secure Onboarding & Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary-fixed":"#d6e3ff","background":"#fbf9fb","primary-fixed-dim":"#b5c7ea","tertiary-fixed-dim":"#eebd94","on-secondary-fixed-variant":"#004f58","on-tertiary-container":"#a87e59","inverse-primary":"#b5c7ea","surface-variant":"#e4e2e5","error":"#ba1a1a","surface-dim":"#dbd9dc","on-secondary-container":"#00616d","tertiary-fixed":"#ffdcc1","on-primary-fixed":"#071c36","on-surface-variant":"#44474d","on-tertiary-fixed-variant":"#613f20","surface-container-low":"#f5f3f6","inverse-on-surface":"#f2f0f3","on-primary":"#ffffff","on-tertiary-fixed":"#2e1500","outline-variant":"#c4c6ce","surface-container-highest":"#e4e2e5","on-error":"#ffffff","primary-container":"#0b1f3a","secondary-container":"#00e3fd","on-tertiary":"#ffffff","primary":"#000615","surface-container-lowest":"#ffffff","surface-tint":"#4d5f7d","secondary-fixed-dim":"#00daf3","secondary-fixed":"#9cf0ff","on-primary-container":"#7587a7","on-error-container":"#93000a","outline":"#75777e","inverse-surface":"#303033","surface-container-high":"#e9e7ea","surface-container":"#efedf0","surface":"#fbf9fb","surface-bright":"#fbf9fb","tertiary":"#0d0400","on-surface":"#1b1b1e","error-container":"#ffdad6","on-primary-fixed-variant":"#364764","on-background":"#1b1b1e","secondary":"#006875","tertiary-container":"#321800","on-secondary-fixed":"#001f24","on-secondary":"#ffffff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{unit:"8px",xs:"4px",xl:"40px",sm:"8px",lg:"24px","container-max":"1280px",md:"16px",gutter:"24px"},fontFamily:{"h1-bold":["Manrope"],"h2-bold":["Manrope"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"h3-bold":["Manrope"],"label-md":["Inter"]},fontSize:{"h1-bold":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"700"}],"h2-bold":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",fontWeight:"600"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-sm":["14px",{lineHeight:"20px",fontWeight:"400"}],"h3-bold":["24px",{lineHeight:"32px",fontWeight:"600"}],"label-md":["14px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"500"}]}}}}
+</script>
+<style>
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}
+  body{min-height:max(884px,100dvh);}
+  .zk-glow{box-shadow:0 0 15px rgba(0,227,253,0.4);}
+  .soft-shadow{box-shadow:0px 4px 20px rgba(11,31,58,0.05);}
+  @media(max-width:1023px){body{padding-bottom:64px;}}
+</style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased">
+
+<!-- TOP APP BAR -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+  <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-cyan-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">security</span>
+      <span class="text-xl font-black text-slate-900 tracking-tighter">Kredify</span>
+    </a>
+    <nav class="hidden md:flex gap-8 items-center">
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="dashboard.html">Dashboard</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="marketplace.html">Marketplace</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="privacy_control.html">Privacy Control</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="lender_view.html">Lender View</a>
+      <a class="font-manrope text-sm font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1" href="process_1.html">Verification</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="text-right hidden sm:block">
+        <p class="text-xs font-bold text-slate-900">Rahul Mehta</p>
+        <p class="text-[10px] text-cyan-600 font-bold uppercase tracking-widest">Gold Tier</p>
+      </div>
+      <div class="w-9 h-9 rounded-full border-2 border-cyan-200 overflow-hidden">
+        <img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwFbvOiF2Rab9XTSprABlNrBCpsADEeeW51JclGod9zJ8Nhs5TEd9onXgmYNSAoeU8z7PBfrUizJHU2TDrlA0WUb_io1yZfj-sdnzswb49K630CsDJ3oIwqIB69ZwFxkchc7y83FwL2tgXneDV3BpKykWBN-jaaVNgFa7cKDVr51dGxCf4bQOuEBVD50GmCF9b30AGtEd4fOTAxLIwP8jVWB8b6mEvJPXsyMFxPcn5RjDvGO24UFosv5ST8O6KABQlV2-zgEwtaMri"/>
+      </div>
+      <button class="lg:hidden" id="mob-toggle"><span class="material-symbols-outlined text-slate-700">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 border-r border-slate-200 bg-white pt-20 pb-6 z-40">
+  <div class="flex flex-col h-full justify-between">
+    <div class="space-y-1 px-3 pt-4">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 pb-3">Navigation</p>
+      <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+      <a href="marketplace.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">account_balance</span><span>Marketplace</span></a>
+      <a href="privacy_control.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">shield_with_heart</span><span>Privacy Control</span></a>
+      <a href="lender_view.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">visibility</span><span>Lender View</span></a>
+      <a href="process_1.html" class="flex items-center gap-3 p-3 rounded-lg bg-cyan-50 text-cyan-600 border-r-4 border-cyan-500 font-bold font-manrope text-sm">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">verified_user</span><span>Verification</span>
+      </a>
+    </div>
+    <div class="px-4 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style="box-shadow:0 0 8px #00e3fd"></span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">ZK-Engine Active</span>
+        </div>
+        <p class="text-[10px] text-slate-400 leading-relaxed">All verifications secured with zero-knowledge proofs.</p>
+      </div>
+      <button class="w-full py-2.5 bg-slate-900 text-white font-manrope font-bold text-xs rounded-xl hover:bg-slate-800 transition-colors">SECURE SIGN OUT</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Drawer -->
+<div id="mob-drawer" class="fixed inset-0 z-[999] hidden">
+  <div class="absolute inset-0 bg-black/50" id="mob-overlay"></div>
+  <div class="absolute left-0 top-0 h-full w-72 bg-white shadow-2xl pt-20 flex flex-col">
+    <div class="space-y-1 px-3">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 pb-3">Navigation</p>
+      <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+      <a href="marketplace.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">account_balance</span><span>Marketplace</span></a>
+      <a href="privacy_control.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">shield_with_heart</span><span>Privacy Control</span></a>
+      <a href="lender_view.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">visibility</span><span>Lender View</span></a>
+      <a href="process_1.html" class="flex items-center gap-3 p-3 rounded-lg bg-cyan-50 text-cyan-600 border-r-4 border-cyan-500 font-bold font-manrope text-sm"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">verified_user</span><span>Verification</span></a>
+    </div>
+    <div class="mt-auto px-4 pb-6"><button class="w-full py-2.5 bg-slate-900 text-white font-bold text-xs rounded-xl">SECURE SIGN OUT</button></div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="lg:ml-64 pt-24 pb-12 px-6">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Step Indicator -->
+    <div class="mb-10">
+      <div class="flex justify-between items-center mb-3">
+        <p class="font-label-md text-slate-500 text-xs uppercase tracking-widest">Onboarding Progress</p>
+        <p class="font-label-md text-primary font-bold text-xs">STEP 01 OF 03</p>
+      </div>
+      <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+        <div class="h-full bg-gradient-to-r from-cyan-500 to-secondary rounded-full" style="width: 33%"></div>
+      </div>
+      <!-- Step labels -->
+      <div class="flex justify-between mt-2">
+        <span class="text-[10px] font-bold text-cyan-600 uppercase tracking-wider">Connect Sources</span>
+        <span class="text-[10px] text-slate-400 uppercase tracking-wider">ZK Verification</span>
+        <span class="text-[10px] text-slate-400 uppercase tracking-wider">Get Score</span>
+      </div>
+    </div>
+
+    <!-- Section 1: Connect Data Sources -->
+    <section class="mb-10">
+      <div class="mb-6">
+        <h2 class="font-h2-bold text-h2-bold text-primary">Connect Your Data Sources</h2>
+        <p class="text-body-sm text-on-surface-variant mt-1">Link financial data streams to build your alternative credit identity. Your credentials never leave your device.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- UPI -->
+        <div class="group bg-white p-6 rounded-xl soft-shadow border border-slate-100 hover:border-secondary-container transition-all cursor-pointer">
+          <div class="w-12 h-12 bg-primary-container text-secondary-container rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">phone_android</span>
+          </div>
+          <h3 class="font-h3-bold text-primary text-base mb-1">UPI</h3>
+          <p class="font-body-sm text-on-surface-variant text-sm mb-4 leading-snug">Scan payment history across all UPI apps.</p>
+          <button class="w-full py-2.5 bg-primary text-white font-label-md rounded-xl hover:bg-slate-800 transition-colors text-sm active:scale-95">Connect</button>
+        </div>
+
+        <!-- Rent -->
+        <div class="group bg-white p-6 rounded-xl soft-shadow border border-slate-100 hover:border-secondary-container transition-all cursor-pointer">
+          <div class="w-12 h-12 bg-primary-container text-secondary-container rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">home</span>
+          </div>
+          <h3 class="font-h3-bold text-primary text-base mb-1">Rent</h3>
+          <p class="font-body-sm text-on-surface-variant text-sm mb-4 leading-snug">Validate 12 months of rental history.</p>
+          <button class="w-full py-2.5 bg-primary text-white font-label-md rounded-xl hover:bg-slate-800 transition-colors text-sm active:scale-95">Connect</button>
+        </div>
+
+        <!-- Utilities -->
+        <div class="group bg-white p-6 rounded-xl soft-shadow border border-slate-100 hover:border-secondary-container transition-all cursor-pointer">
+          <div class="w-12 h-12 bg-primary-container text-secondary-container rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">bolt</span>
+          </div>
+          <h3 class="font-h3-bold text-primary text-base mb-1">Utilities</h3>
+          <p class="font-body-sm text-on-surface-variant text-sm mb-4 leading-snug">Sync electricity and water bills.</p>
+          <button class="w-full py-2.5 bg-primary text-white font-label-md rounded-xl hover:bg-slate-800 transition-colors text-sm active:scale-95">Connect</button>
+        </div>
+
+        <!-- Chit Funds -->
+        <div class="group bg-white p-6 rounded-xl soft-shadow border border-slate-100 hover:border-secondary-container transition-all cursor-pointer">
+          <div class="w-12 h-12 bg-primary-container text-secondary-container rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">groups</span>
+          </div>
+          <h3 class="font-h3-bold text-primary text-base mb-1">Chit Funds</h3>
+          <p class="font-body-sm text-on-surface-variant text-sm mb-4 leading-snug">Verify localized savings participation.</p>
+          <button class="w-full py-2.5 bg-primary text-white font-label-md rounded-xl hover:bg-slate-800 transition-colors text-sm active:scale-95">Connect</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: ZK Verification Animation -->
+    <section class="mb-10 relative overflow-hidden bg-primary-container rounded-2xl p-10 text-center border border-white/10">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 to-transparent pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col items-center">
+        <!-- Animated ring -->
+        <div class="relative w-32 h-32 mb-6">
+          <div class="absolute inset-0 border-4 border-cyan-500/20 rounded-full"></div>
+          <div class="absolute inset-0 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+          <div class="absolute inset-3 bg-primary rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary-container text-3xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">shield_with_heart</span>
+          </div>
+          <!-- Glow points -->
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary-container rounded-full zk-glow"></div>
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary-container rounded-full zk-glow" style="animation-delay:0.5s"></div>
+        </div>
+        <h2 class="font-h2-bold text-white mb-3 text-2xl">Verifying Data</h2>
+        <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10 mb-4">
+          <div class="w-2 h-2 bg-secondary-container rounded-full zk-glow animate-pulse"></div>
+          <p class="font-label-sm text-secondary-container uppercase tracking-widest text-xs">Zero-Knowledge Proof Active</p>
+        </div>
+        <p class="font-body-md text-on-primary-container max-w-lg text-sm leading-relaxed">Zero-Knowledge Proof generated — your raw data is never shared. Kredify only validates the creditworthiness of the connected streams.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Confirmation + CTA -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+
+      <!-- Connected Sources Summary -->
+      <div class="lg:col-span-7">
+        <div class="bg-white rounded-xl soft-shadow border border-slate-100 overflow-hidden">
+          <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+            <h3 class="font-h3-bold text-primary text-base">Connected Sources</h3>
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+              SECURE
+            </span>
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-slate-200">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm border border-slate-100">
+                  <span class="material-symbols-outlined text-slate-600">payments</span>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">UPI Payments History</p>
+                  <p class="text-xs text-slate-500">Last sync: Just now</p>
+                </div>
+              </div>
+              <span class="font-label-md text-cyan-600 text-xs font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                Verified
+              </span>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-slate-200">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm border border-slate-100">
+                  <span class="material-symbols-outlined text-slate-600">electric_bolt</span>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">State Utility Board</p>
+                  <p class="text-xs text-slate-500">Last sync: Just now</p>
+                </div>
+              </div>
+              <span class="font-label-md text-cyan-600 text-xs font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                Verified
+              </span>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-slate-200">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm border border-slate-100">
+                  <span class="material-symbols-outlined text-slate-600">home</span>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-900 text-sm">Rent Payment History</p>
+                  <p class="text-xs text-slate-500">Last sync: Just now</p>
+                </div>
+              </div>
+              <span class="font-label-md text-cyan-600 text-xs font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                Verified
+              </span>
+            </div>
+          </div>
+          <!-- Privacy guarantee footer -->
+          <div class="p-5 bg-slate-50 border-t border-slate-100">
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary text-xl mt-0.5" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">lock</span>
+              <div>
+                <p class="font-bold text-slate-900 text-sm">Privacy Guarantee</p>
+                <p class="font-body-sm text-slate-500 text-xs leading-relaxed mt-0.5">Your credentials were used only to generate an encrypted credit signal. Kredify does not store passwords or raw transaction history.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Sidebar -->
+      <div class="lg:col-span-5">
+        <div class="bg-white p-6 rounded-xl soft-shadow border-t-4 border-[#D4AF37] sticky top-24">
+          <div class="mb-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Verified Tier</span>
+              <span class="material-symbols-outlined text-[#D4AF37] text-2xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">workspace_premium</span>
+            </div>
+            <h2 class="font-h2-bold text-primary mb-2 text-2xl">Ready to Reveal</h2>
+            <p class="font-body-sm text-on-surface-variant text-sm leading-relaxed">Your cross-platform financial identity has been successfully processed using ZK-Proofing. Your score is ready for calculation.</p>
+          </div>
+          <a href="dashboard.html" class="flex items-center justify-center gap-2 w-full py-4 bg-secondary-container text-primary-container font-h3-bold rounded-xl shadow-lg hover:brightness-105 active:scale-[0.98] transition-all mb-4 text-sm">
+            View My Score
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+          <p class="text-center font-label-sm text-slate-400 italic text-xs">Score generation is instant and won't affect your traditional credit history.</p>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+<!-- Mobile Bottom Nav -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur border-t border-slate-200 px-2 py-2 flex justify-around items-center z-50">
+  <a href="dashboard.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">dashboard</span><span class="text-[9px] font-semibold">Dashboard</span></a>
+  <a href="marketplace.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">account_balance</span><span class="text-[9px] font-semibold">Market</span></a>
+  <a href="privacy_control.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">shield_with_heart</span><span class="text-[9px] font-semibold">Privacy</span></a>
+  <a href="lender_view.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">visibility</span><span class="text-[9px] font-semibold">Lender</span></a>
+  <a href="process_1.html" class="flex flex-col items-center gap-0.5 text-cyan-600"><span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">verified_user</span><span class="text-[9px] font-semibold">Verify</span></a>
+</nav>
+
+<!-- Footer -->
+<footer class="lg:ml-64 w-full py-10 border-t border-slate-200 bg-slate-50 mt-10">
+  <div class="w-full flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+    <div class="mb-0">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="material-symbols-outlined text-slate-900">security</span>
+        <span class="font-bold text-slate-900">Kredify</span>
+      </div>
+      <p class="text-xs text-slate-500">© 2025 Kredify. Zero-Knowledge Verified Trust.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Privacy Policy</a>
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Security Audit</a>
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Terms of Service</a>
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const t=document.getElementById('mob-toggle'),d=document.getElementById('mob-drawer'),o=document.getElementById('mob-overlay');
+  if(t){t.addEventListener('click',()=>{d.classList.remove('hidden');document.body.style.overflow='hidden';});o.addEventListener('click',()=>{d.classList.add('hidden');document.body.style.overflow='';});}
+</script>
+</body>
+</html>

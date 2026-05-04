@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kredify — TrustScore Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary-fixed": "#d6e3ff","background": "#fbf9fb","primary-fixed-dim": "#b5c7ea",
+          "tertiary-fixed-dim": "#eebd94","on-secondary-fixed-variant": "#004f58","on-tertiary-container": "#a87e59",
+          "inverse-primary": "#b5c7ea","surface-variant": "#e4e2e5","error": "#ba1a1a","surface-dim": "#dbd9dc",
+          "on-secondary-container": "#00616d","tertiary-fixed": "#ffdcc1","on-primary-fixed": "#071c36",
+          "on-surface-variant": "#44474d","on-tertiary-fixed-variant": "#613f20","surface-container-low": "#f5f3f6",
+          "inverse-on-surface": "#f2f0f3","on-primary": "#ffffff","on-tertiary-fixed": "#2e1500",
+          "outline-variant": "#c4c6ce","surface-container-highest": "#e4e2e5","on-error": "#ffffff",
+          "primary-container": "#0b1f3a","secondary-container": "#00e3fd","on-tertiary": "#ffffff",
+          "primary": "#000615","surface-container-lowest": "#ffffff","surface-tint": "#4d5f7d",
+          "secondary-fixed-dim": "#00daf3","secondary-fixed": "#9cf0ff","on-primary-container": "#7587a7",
+          "on-error-container": "#93000a","outline": "#75777e","inverse-surface": "#303033",
+          "surface-container-high": "#e9e7ea","surface-container": "#efedf0","surface": "#fbf9fb",
+          "surface-bright": "#fbf9fb","tertiary": "#0d0400","on-surface": "#1b1b1e","error-container": "#ffdad6",
+          "on-primary-fixed-variant": "#364764","on-background": "#1b1b1e","secondary": "#006875",
+          "tertiary-container": "#321800","on-secondary-fixed": "#001f24","on-secondary": "#ffffff"
+        },
+        borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
+        spacing: { unit: "8px", xs: "4px", xl: "40px", sm: "8px", lg: "24px", "container-max": "1280px", md: "16px", gutter: "24px" },
+        fontFamily: { "h1-bold": ["Manrope"],"h2-bold": ["Manrope"],"label-sm": ["Inter"],"body-md": ["Inter"],"body-sm": ["Inter"],"h3-bold": ["Manrope"],"label-md": ["Inter"] },
+        fontSize: {
+          "h1-bold": ["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"700"}],
+          "h2-bold": ["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"700"}],
+          "label-sm": ["12px",{lineHeight:"16px",fontWeight:"600"}],
+          "body-md": ["16px",{lineHeight:"24px",fontWeight:"400"}],
+          "body-sm": ["14px",{lineHeight:"20px",fontWeight:"400"}],
+          "h3-bold": ["24px",{lineHeight:"32px",fontWeight:"600"}],
+          "label-md": ["14px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"500"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+  body { min-height: max(884px, 100dvh); }
+  .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F7EF8A 50%, #D4AF37 100%); }
+  .trust-arc { stroke-dasharray: 690; stroke-dashoffset: 150; transition: stroke-dashoffset 2s ease-out; }
+  @media (max-width: 1023px) { body { padding-bottom: 64px; } }
+</style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+
+<!-- ═══════════════════════════════════════════════
+     TOP APP BAR
+══════════════════════════════════════════════════ -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+  <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-cyan-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">security</span>
+      <span class="text-xl font-black text-slate-900 tracking-tighter">Kredify</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="font-manrope text-sm font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1" href="dashboard.html">Dashboard</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="marketplace.html">Marketplace</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="privacy_control.html">Privacy Control</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="lender_view.html">Lender View</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="process_1.html">Verification</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="text-right hidden sm:block">
+        <p class="text-xs font-bold text-slate-900">Rahul Mehta</p>
+        <p class="text-[10px] text-cyan-600 font-bold uppercase tracking-widest">Gold Tier</p>
+      </div>
+      <div class="w-9 h-9 rounded-full border-2 border-cyan-200 overflow-hidden">
+        <img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwFbvOiF2Rab9XTSprABlNrBCpsADEeeW51JclGod9zJ8Nhs5TEd9onXgmYNSAoeU8z7PBfrUizJHU2TDrlA0WUb_io1yZfj-sdnzswb49K630CsDJ3oIwqIB69ZwFxkchc7y83FwL2tgXneDV3BpKykWBN-jaaVNgFa7cKDVr51dGxCf4bQOuEBVD50GmCF9b30AGtEd4fOTAxLIwP8jVWB8b6mEvJPXsyMFxPcn5RjDvGO24UFosv5ST8O6KABQlV2-zgEwtaMri"/>
+      </div>
+      <button class="lg:hidden" id="mob-toggle" aria-label="Open menu">
+        <span class="material-symbols-outlined text-slate-700">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     SIDEBAR NAVIGATION (Desktop)
+══════════════════════════════════════════════════ -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 border-r border-slate-200 bg-white pt-20 pb-6 z-40">
+  <div class="flex flex-col h-full justify-between">
+    <div class="space-y-1 px-3 pt-4">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 pb-3">Navigation</p>
+      <!-- Dashboard — ACTIVE -->
+      <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-lg bg-cyan-50 text-cyan-600 border-r-4 border-cyan-500 font-bold font-manrope text-sm">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="marketplace.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span>Marketplace</span>
+      </a>
+      <a href="privacy_control.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors">
+        <span class="material-symbols-outlined">shield_with_heart</span>
+        <span>Privacy Control</span>
+      </a>
+      <a href="lender_view.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors">
+        <span class="material-symbols-outlined">visibility</span>
+        <span>Lender View</span>
+      </a>
+      <a href="process_1.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors">
+        <span class="material-symbols-outlined">verified_user</span>
+        <span>Verification</span>
+      </a>
+    </div>
+    <div class="px-4 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style="box-shadow:0 0 8px #00e3fd"></span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">ZK-Engine Active</span>
+        </div>
+        <p class="text-[10px] text-slate-400 leading-relaxed">All verifications secured with zero-knowledge proofs.</p>
+      </div>
+      <button class="w-full py-2.5 bg-slate-900 text-white font-manrope font-bold text-xs rounded-xl hover:bg-slate-800 transition-colors active:scale-95">
+        SECURE SIGN OUT
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Drawer Overlay -->
+<div id="mob-drawer" class="fixed inset-0 z-[999] hidden">
+  <div class="absolute inset-0 bg-black/50" id="mob-overlay"></div>
+  <div class="absolute left-0 top-0 h-full w-72 bg-white shadow-2xl pt-20 flex flex-col">
+    <div class="space-y-1 px-3">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 pb-3">Navigation</p>
+      <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-lg bg-cyan-50 text-cyan-600 border-r-4 border-cyan-500 font-bold font-manrope text-sm">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">dashboard</span><span>Dashboard</span>
+      </a>
+      <a href="marketplace.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">account_balance</span><span>Marketplace</span></a>
+      <a href="privacy_control.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">shield_with_heart</span><span>Privacy Control</span></a>
+      <a href="lender_view.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">visibility</span><span>Lender View</span></a>
+      <a href="process_1.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">verified_user</span><span>Verification</span></a>
+    </div>
+    <div class="mt-auto px-4 pb-6">
+      <button class="w-full py-2.5 bg-slate-900 text-white font-bold text-xs rounded-xl">SECURE SIGN OUT</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════════ -->
+<main class="lg:ml-64 pt-24 px-6 pb-12">
+  <div class="max-w-6xl mx-auto space-y-gutter">
+
+    <!-- Row 1: Score Gauge + Breakdown -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+      <!-- Score Gauge -->
+      <div class="md:col-span-7 bg-white rounded-xl shadow-[0_4px_20px_rgba(11,31,58,0.05)] p-8 relative overflow-hidden border-t-2 border-[#D4AF37]">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h2 class="font-h3-bold text-primary mb-1">Your TrustScore</h2>
+            <p class="text-body-sm text-slate-500">Last updated: Today, 10:24 AM</p>
+          </div>
+          <div class="gold-gradient px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">stars</span>
+            <span class="text-[10px] font-bold text-primary tracking-wider">GOLD TIER</span>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-center py-6 relative">
+          <svg class="w-64 h-64 transform -rotate-90" viewBox="0 0 256 256">
+            <circle cx="128" cy="128" fill="transparent" r="110" stroke="#e2e8f0" stroke-width="12"/>
+            <circle class="trust-arc" cx="128" cy="128" fill="transparent" r="110" stroke="url(#goldGrad)" stroke-dasharray="690" stroke-dashoffset="150" stroke-linecap="round" stroke-width="12"/>
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+                <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#F7EF8A;stop-opacity:1"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+            <span class="text-[64px] font-black font-manrope leading-none text-primary">780</span>
+            <span class="font-label-md text-slate-400 mt-2 tracking-widest">OUT OF 900</span>
+          </div>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-4 border-t border-slate-100 pt-6">
+          <div class="text-center">
+            <p class="text-body-sm text-slate-400 mb-1">Health</p>
+            <p class="font-h3-bold text-primary text-base">Excellent</p>
+          </div>
+          <div class="text-center border-x border-slate-100">
+            <p class="text-body-sm text-slate-400 mb-1">Growth</p>
+            <p class="font-h3-bold text-cyan-600 text-base">+24 pts</p>
+          </div>
+          <div class="text-center">
+            <p class="text-body-sm text-slate-400 mb-1">Percentile</p>
+            <p class="font-h3-bold text-primary text-base">Top 4%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Breakdown -->
+      <div class="md:col-span-5 bg-white rounded-xl shadow-[0_4px_20px_rgba(11,31,58,0.05)] p-8">
+        <h3 class="font-h3-bold text-primary mb-6">Score Breakdown</h3>
+        <div class="space-y-5">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-label-md text-on-surface">UPI Reliability</span>
+              <span class="text-body-sm font-bold text-primary">320/350</span>
+            </div>
+            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-primary rounded-full" style="width:91%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-label-md text-on-surface">Rent &amp; Utility</span>
+              <span class="text-body-sm font-bold text-primary">185/200</span>
+            </div>
+            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-primary rounded-full" style="width:92%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-label-md text-on-surface">ZK-Proof History</span>
+              <span class="text-body-sm font-bold text-primary">225/250</span>
+            </div>
+            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-primary rounded-full" style="width:90%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-label-md text-on-surface">Network Stability</span>
+              <span class="text-body-sm font-bold text-primary">50/100</span>
+            </div>
+            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-secondary-container rounded-full" style="width:50%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 p-4 bg-slate-50 rounded-xl flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-cyan-600 shadow-sm flex-shrink-0">
+            <span class="material-symbols-outlined text-xl">lightbulb</span>
+          </div>
+          <div>
+            <p class="font-label-sm text-primary text-xs">Pro Tip</p>
+            <p class="text-body-sm text-slate-500 text-xs">Connect your ISP data to boost Network Stability by +15 pts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: CTA + Recent Verifications -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+      <!-- CTA Card -->
+      <div class="md:col-span-4 bg-primary-container rounded-xl p-8 text-white relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+        <div class="relative z-10">
+          <h3 class="font-h3-bold mb-4 text-lg">Elevate your Platinum eligibility</h3>
+          <p class="text-body-sm text-primary-fixed-dim mb-6 leading-relaxed">Unlock exclusive lender rates by completing your 24-month zero-knowledge verification sweep.</p>
+        </div>
+        <div class="relative z-10">
+          <a href="process_1.html" class="block w-full py-4 bg-secondary-container text-on-secondary-fixed font-bold rounded-xl text-center transition-all hover:brightness-110 active:scale-95 shadow-[0_0_20px_rgba(0,227,253,0.3)]">
+            Improve Your Score
+          </a>
+        </div>
+        <div class="absolute -right-12 -bottom-12 w-48 h-48 rounded-full border-[20px] border-white/5"></div>
+      </div>
+
+      <!-- Recent Verifications -->
+      <div class="md:col-span-8 bg-white rounded-xl shadow-[0_4px_20px_rgba(11,31,58,0.05)] p-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="font-h3-bold text-primary">Recent Verifications</h3>
+          <button class="text-body-sm font-bold text-cyan-600 hover:underline">View History</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="border-b border-slate-100">
+              <tr>
+                <th class="py-3 font-label-md text-slate-400 text-xs">Activity</th>
+                <th class="py-3 font-label-md text-slate-400 text-xs">Platform</th>
+                <th class="py-3 font-label-md text-slate-400 text-xs">Status</th>
+                <th class="py-3 font-label-md text-slate-400 text-xs">Date</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+              <tr class="hover:bg-slate-50/50 transition-colors">
+                <td class="py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center flex-shrink-0">
+                      <span class="material-symbols-outlined text-sm text-primary">home_work</span>
+                    </div>
+                    <span class="font-label-md text-primary text-xs">Rent Proof Verified</span>
+                  </div>
+                </td>
+                <td class="py-4 text-body-sm text-slate-500 text-xs">Zillow Trust</td>
+                <td class="py-4">
+                  <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-cyan-50 text-cyan-700 text-[10px] font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>ZK-VERIFIED
+                  </span>
+                </td>
+                <td class="py-4 text-body-sm text-slate-500 text-xs whitespace-nowrap">Dec 12, 2024</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50 transition-colors">
+                <td class="py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center flex-shrink-0">
+                      <span class="material-symbols-outlined text-sm text-primary">payments</span>
+                    </div>
+                    <span class="font-label-md text-primary text-xs">Utility Payment Aggregate</span>
+                  </div>
+                </td>
+                <td class="py-4 text-body-sm text-slate-500 text-xs">GridSecure</td>
+                <td class="py-4">
+                  <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-cyan-50 text-cyan-700 text-[10px] font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>ZK-VERIFIED
+                  </span>
+                </td>
+                <td class="py-4 text-body-sm text-slate-500 text-xs whitespace-nowrap">Dec 10, 2024</td>
+              </tr>
+              <tr class="hover:bg-slate-50/50 transition-colors">
+                <td class="py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center flex-shrink-0">
+                      <span class="material-symbols-outlined text-sm text-primary">history_edu</span>
+                    </div>
+                    <span class="font-label-md text-primary text-xs">Identity Attestation</span>
+                  </div>
+                </td>
+                <td class="py-4 text-body-sm text-slate-500 text-xs">Kredify Global</td>
+                <td class="py-4">
+                  <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-cyan-50 text-cyan-700 text-[10px] font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>ZK-VERIFIED
+                  </span>
+                </td>
+                <td class="py-4 text-body-sm text-slate-500 text-xs whitespace-nowrap">Nov 28, 2024</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Mobile Bottom Nav -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur border-t border-slate-200 px-2 py-2 flex justify-around items-center z-50">
+  <a href="dashboard.html" class="flex flex-col items-center gap-0.5 text-cyan-600">
+    <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">dashboard</span>
+    <span class="text-[9px] font-semibold">Dashboard</span>
+  </a>
+  <a href="marketplace.html" class="flex flex-col items-center gap-0.5 text-slate-400">
+    <span class="material-symbols-outlined text-xl">account_balance</span>
+    <span class="text-[9px] font-semibold">Market</span>
+  </a>
+  <a href="privacy_control.html" class="flex flex-col items-center gap-0.5 text-slate-400">
+    <span class="material-symbols-outlined text-xl">shield_with_heart</span>
+    <span class="text-[9px] font-semibold">Privacy</span>
+  </a>
+  <a href="lender_view.html" class="flex flex-col items-center gap-0.5 text-slate-400">
+    <span class="material-symbols-outlined text-xl">visibility</span>
+    <span class="text-[9px] font-semibold">Lender</span>
+  </a>
+  <a href="process_1.html" class="flex flex-col items-center gap-0.5 text-slate-400">
+    <span class="material-symbols-outlined text-xl">verified_user</span>
+    <span class="text-[9px] font-semibold">Verify</span>
+  </a>
+</nav>
+
+<!-- Footer -->
+<footer class="lg:ml-64 w-full py-10 border-t border-slate-200 bg-slate-50 mt-10">
+  <div class="w-full flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+    <div class="flex flex-col gap-1">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-slate-900">security</span>
+        <span class="font-bold text-slate-900">Kredify</span>
+      </div>
+      <p class="text-xs text-slate-500">© 2025 Kredify. Zero-Knowledge Verified Trust.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Privacy Policy</a>
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Security Audit</a>
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Terms of Service</a>
+      <a class="text-xs text-slate-500 hover:text-cyan-500 transition-colors" href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('mob-toggle');
+  const drawer = document.getElementById('mob-drawer');
+  const overlay = document.getElementById('mob-overlay');
+  if (toggle) {
+    toggle.addEventListener('click', () => { drawer.classList.remove('hidden'); document.body.style.overflow='hidden'; });
+    overlay.addEventListener('click', () => { drawer.classList.add('hidden'); document.body.style.overflow=''; });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kredify — Privacy Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary-fixed":"#d6e3ff","background":"#fbf9fb","primary-fixed-dim":"#b5c7ea","tertiary-fixed-dim":"#eebd94","on-secondary-fixed-variant":"#004f58","on-tertiary-container":"#a87e59","inverse-primary":"#b5c7ea","surface-variant":"#e4e2e5","error":"#ba1a1a","surface-dim":"#dbd9dc","on-secondary-container":"#00616d","tertiary-fixed":"#ffdcc1","on-primary-fixed":"#071c36","on-surface-variant":"#44474d","on-tertiary-fixed-variant":"#613f20","surface-container-low":"#f5f3f6","inverse-on-surface":"#f2f0f3","on-primary":"#ffffff","on-tertiary-fixed":"#2e1500","outline-variant":"#c4c6ce","surface-container-highest":"#e4e2e5","on-error":"#ffffff","primary-container":"#0b1f3a","secondary-container":"#00e3fd","on-tertiary":"#ffffff","primary":"#000615","surface-container-lowest":"#ffffff","surface-tint":"#4d5f7d","secondary-fixed-dim":"#00daf3","secondary-fixed":"#9cf0ff","on-primary-container":"#7587a7","on-error-container":"#93000a","outline":"#75777e","inverse-surface":"#303033","surface-container-high":"#e9e7ea","surface-container":"#efedf0","surface":"#fbf9fb","surface-bright":"#fbf9fb","tertiary":"#0d0400","on-surface":"#1b1b1e","error-container":"#ffdad6","on-primary-fixed-variant":"#364764","on-background":"#1b1b1e","secondary":"#006875","tertiary-container":"#321800","on-secondary-fixed":"#001f24","on-secondary":"#ffffff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{unit:"8px",xs:"4px",xl:"40px",sm:"8px",lg:"24px","container-max":"1280px",md:"16px",gutter:"24px"},fontFamily:{"h1-bold":["Manrope"],"h2-bold":["Manrope"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"h3-bold":["Manrope"],"label-md":["Inter"]},fontSize:{"h1-bold":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"700"}],"h2-bold":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-sm":["12px",{lineHeight:"16px",fontWeight:"600"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-sm":["14px",{lineHeight:"20px",fontWeight:"400"}],"h3-bold":["24px",{lineHeight:"32px",fontWeight:"600"}],"label-md":["14px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"500"}]}}}}
+</script>
+<style>
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}
+  body{min-height:max(884px,100dvh);}
+  .glass-card{background:rgba(255,255,255,0.8);backdrop-filter:blur(12px);border:1px solid rgba(226,232,240,0.5);box-shadow:0px 4px 20px rgba(11,31,58,0.05);}
+  .zk-glow{box-shadow:0 0 8px 0px rgba(0,227,253,0.4);}
+  @media(max-width:1023px){body{padding-bottom:64px;}}
+</style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-container">
+
+<!-- TOP APP BAR -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+  <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-cyan-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">security</span>
+      <span class="text-xl font-black text-slate-900 tracking-tighter">Kredify</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="dashboard.html">Dashboard</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="marketplace.html">Marketplace</a>
+      <a class="font-manrope text-sm font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1" href="privacy_control.html">Privacy Control</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="lender_view.html">Lender View</a>
+      <a class="font-manrope text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="process_1.html">Verification</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="text-right hidden sm:block">
+        <p class="text-xs font-bold text-slate-900">Rahul Mehta</p>
+        <p class="text-[10px] text-cyan-600 font-bold uppercase tracking-widest">Gold Tier</p>
+      </div>
+      <div class="w-9 h-9 rounded-full border-2 border-cyan-200 overflow-hidden">
+        <img alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwFbvOiF2Rab9XTSprABlNrBCpsADEeeW51JclGod9zJ8Nhs5TEd9onXgmYNSAoeU8z7PBfrUizJHU2TDrlA0WUb_io1yZfj-sdnzswb49K630CsDJ3oIwqIB69ZwFxkchc7y83FwL2tgXneDV3BpKykWBN-jaaVNgFa7cKDVr51dGxCf4bQOuEBVD50GmCF9b30AGtEd4fOTAxLIwP8jVWB8b6mEvJPXsyMFxPcn5RjDvGO24UFosv5ST8O6KABQlV2-zgEwtaMri" class="w-full h-full object-cover"/>
+      </div>
+      <button class="lg:hidden" id="mob-toggle"><span class="material-symbols-outlined text-slate-700">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 border-r border-slate-200 bg-white pt-20 pb-6 z-40">
+  <div class="flex flex-col h-full justify-between">
+    <div class="space-y-1 px-3 pt-4">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 pb-3">Navigation</p>
+      <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+      <a href="marketplace.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">account_balance</span><span>Marketplace</span></a>
+      <a href="privacy_control.html" class="flex items-center gap-3 p-3 rounded-lg bg-cyan-50 text-cyan-600 border-r-4 border-cyan-500 font-bold font-manrope text-sm">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">shield_with_heart</span><span>Privacy Control</span>
+      </a>
+      <a href="lender_view.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">visibility</span><span>Lender View</span></a>
+      <a href="process_1.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm transition-colors"><span class="material-symbols-outlined">verified_user</span><span>Verification</span></a>
+    </div>
+    <div class="px-4 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style="box-shadow:0 0 8px #00e3fd"></span>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">ZK-Engine Active</span>
+        </div>
+        <p class="text-[10px] text-slate-400 leading-relaxed">All verifications secured with zero-knowledge proofs.</p>
+      </div>
+      <button class="w-full py-2.5 bg-slate-900 text-white font-manrope font-bold text-xs rounded-xl hover:bg-slate-800 transition-colors">SECURE SIGN OUT</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Drawer -->
+<div id="mob-drawer" class="fixed inset-0 z-[999] hidden">
+  <div class="absolute inset-0 bg-black/50" id="mob-overlay"></div>
+  <div class="absolute left-0 top-0 h-full w-72 bg-white shadow-2xl pt-20 flex flex-col">
+    <div class="space-y-1 px-3">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 pb-3">Navigation</p>
+      <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+      <a href="marketplace.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">account_balance</span><span>Marketplace</span></a>
+      <a href="privacy_control.html" class="flex items-center gap-3 p-3 rounded-lg bg-cyan-50 text-cyan-600 border-r-4 border-cyan-500 font-bold font-manrope text-sm"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">shield_with_heart</span><span>Privacy Control</span></a>
+      <a href="lender_view.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">visibility</span><span>Lender View</span></a>
+      <a href="process_1.html" class="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-slate-50 font-medium font-manrope text-sm"><span class="material-symbols-outlined">verified_user</span><span>Verification</span></a>
+    </div>
+    <div class="mt-auto px-4 pb-6"><button class="w-full py-2.5 bg-slate-900 text-white font-bold text-xs rounded-xl">SECURE SIGN OUT</button></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="lg:ml-64 pt-24 px-6 pb-12">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="mb-8">
+      <h1 class="font-h2-bold text-h2-bold text-primary">Privacy Control</h1>
+      <p class="text-body-sm text-slate-500 mt-1">Manage which zero-knowledge proofs are active and which data sources are connected.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+
+      <!-- Left: ZK Explainer -->
+      <div class="md:col-span-5">
+        <div class="glass-card rounded-xl p-8 sticky top-24">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-secondary-container" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">shield_with_heart</span>
+            </div>
+            <div>
+              <h2 class="font-h3-bold text-primary text-base">Your ZK Identity</h2>
+              <p class="text-[10px] text-cyan-600 font-bold uppercase tracking-widest">Cryptographically Secured</p>
+            </div>
+          </div>
+          <p class="text-body-sm text-on-surface-variant mb-6 leading-relaxed">
+            Zero-Knowledge Proofs allow Kredify to verify your financial standing without ever accessing your raw data. You decide what to prove, and when.
+          </p>
+          <ul class="space-y-4 mb-6">
+            <li class="flex gap-3 items-start">
+              <span class="material-symbols-outlined text-secondary text-xl mt-0.5" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+              <span class="text-sm font-medium text-slate-700">Your raw data never leaves your device</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="material-symbols-outlined text-secondary text-xl mt-0.5" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+              <span class="text-sm font-medium text-slate-700">Revoke access instantly at any time</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="material-symbols-outlined text-secondary text-xl mt-0.5" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+              <span class="text-sm font-medium text-slate-700">Cryptographically signed verification</span>
+            </li>
+          </ul>
+          <div class="mt-6 pt-6 border-t border-slate-100">
+            <div class="bg-primary rounded-xl p-4 font-mono text-xs text-cyan-400/80 space-y-1">
+              <p class="text-cyan-400">&gt; ZK Proof: ACTIVE</p>
+              <p>&gt; Hash: 0x8f2e...4a1b</p>
+              <p class="text-green-400 animate-pulse">&gt; Status: VERIFIED ✓</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Controls -->
+      <div class="md:col-span-7 space-y-6">
+
+        <!-- Connected Data Sources -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+            <h3 class="font-h3-bold text-base text-primary">Connected Sources</h3>
+            <button class="text-secondary font-label-md text-sm hover:underline font-bold">+ Add Source</button>
+          </div>
+          <div class="divide-y divide-slate-100">
+            <div class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+              <div class="flex items-center gap-4">
+                <div class="w-11 h-11 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-slate-500">account_balance</span>
+                </div>
+                <div>
+                  <p class="font-bold text-base text-primary">Chase Bank (Personal)</p>
+                  <p class="text-xs text-on-surface-variant">Last synced 2 hours ago</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                <input checked class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+              <div class="flex items-center gap-4">
+                <div class="w-11 h-11 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-slate-500">payments</span>
+                </div>
+                <div>
+                  <p class="font-bold text-base text-primary">Fidelity Investments</p>
+                  <p class="text-xs text-on-surface-variant">Last synced 1 day ago</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                <input checked class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+              <div class="flex items-center gap-4">
+                <div class="w-11 h-11 bg-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-slate-500">phone_android</span>
+                </div>
+                <div>
+                  <p class="font-bold text-base text-primary">UPI / PhonePe</p>
+                  <p class="text-xs text-on-surface-variant">Last synced 30 minutes ago</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                <input checked class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Sharing Control -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-6 py-5 border-b border-slate-100 bg-slate-50/50">
+            <h3 class="font-h3-bold text-base text-primary">Data Sharing Control</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Select which mathematical proofs are active for your identity</p>
+          </div>
+          <div class="p-6 space-y-4">
+
+            <!-- Proof of Income Range — ACTIVE -->
+            <div class="flex items-start justify-between p-4 rounded-xl border border-slate-100 hover:border-secondary-container transition-all bg-slate-50/50">
+              <div class="flex gap-4 flex-1 min-w-0 pr-4">
+                <div class="mt-1.5 w-2 h-2 rounded-full bg-secondary zk-glow flex-shrink-0"></div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-bold text-sm text-primary">Proof of Income Range</span>
+                    <span class="bg-cyan-50 text-cyan-700 text-[10px] px-2 py-0.5 rounded font-bold">ACTIVE</span>
+                  </div>
+                  <p class="text-sm text-on-surface-variant mt-1 leading-snug">Allows lenders to verify your annual income exceeds ₹12,00,000 without seeing transaction history.</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0 mt-1">
+                <input checked class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+
+            <!-- Debt-to-Income Proof — INACTIVE -->
+            <div class="flex items-start justify-between p-4 rounded-xl border border-slate-100 hover:border-secondary-container transition-all">
+              <div class="flex gap-4 flex-1 min-w-0 pr-4">
+                <div class="mt-1.5 w-2 h-2 rounded-full bg-slate-300 flex-shrink-0"></div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-bold text-sm text-primary">Debt-to-Income Ratio Proof</span>
+                    <span class="bg-surface-variant text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">Inactive</span>
+                  </div>
+                  <p class="text-sm text-on-surface-variant mt-1 leading-snug">Validates your DTI is below 35% for mortgage pre-approvals.</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0 mt-1">
+                <input class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+
+            <!-- Asset Liquidity Verification — ACTIVE -->
+            <div class="flex items-start justify-between p-4 rounded-xl border border-slate-100 hover:border-secondary-container transition-all bg-slate-50/50">
+              <div class="flex gap-4 flex-1 min-w-0 pr-4">
+                <div class="mt-1.5 w-2 h-2 rounded-full bg-secondary zk-glow flex-shrink-0"></div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-bold text-sm text-primary">Asset Liquidity Verification</span>
+                    <span class="bg-cyan-50 text-cyan-700 text-[10px] px-2 py-0.5 rounded font-bold">ACTIVE</span>
+                  </div>
+                  <p class="text-sm text-on-surface-variant mt-1 leading-snug">Confirms you hold &gt;₹40L in liquid assets across all connected accounts.</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0 mt-1">
+                <input checked class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+
+            <!-- Rent History — INACTIVE -->
+            <div class="flex items-start justify-between p-4 rounded-xl border border-slate-100 hover:border-secondary-container transition-all">
+              <div class="flex gap-4 flex-1 min-w-0 pr-4">
+                <div class="mt-1.5 w-2 h-2 rounded-full bg-slate-300 flex-shrink-0"></div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-bold text-sm text-primary">Rent Payment History</span>
+                    <span class="bg-surface-variant text-on-surface-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase">Inactive</span>
+                  </div>
+                  <p class="text-sm text-on-surface-variant mt-1 leading-snug">Confirms 12+ months of consistent on-time rent payments.</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer flex-shrink-0 mt-1">
+                <input class="sr-only peer" type="checkbox"/>
+                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+              </label>
+            </div>
+          </div>
+          <div class="px-6 py-4 bg-slate-900 flex justify-between items-center">
+            <span class="text-white text-xs font-medium">All changes are saved and encrypted on-chain</span>
+            <button class="bg-secondary-container text-primary font-bold px-4 py-2 rounded-lg text-xs hover:opacity-90 transition-opacity active:scale-95">Global Revoke</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Mobile Bottom Nav -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur border-t border-slate-200 px-2 py-2 flex justify-around items-center z-50">
+  <a href="dashboard.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">dashboard</span><span class="text-[9px] font-semibold">Dashboard</span></a>
+  <a href="marketplace.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">account_balance</span><span class="text-[9px] font-semibold">Market</span></a>
+  <a href="privacy_control.html" class="flex flex-col items-center gap-0.5 text-cyan-600"><span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">shield_with_heart</span><span class="text-[9px] font-semibold">Privacy</span></a>
+  <a href="lender_view.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">visibility</span><span class="text-[9px] font-semibold">Lender</span></a>
+  <a href="process_1.html" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="material-symbols-outlined text-xl">verified_user</span><span class="text-[9px] font-semibold">Verify</span></a>
+</nav>
+
+<!-- Footer -->
+<footer class="lg:ml-64 w-full py-10 border-t border-slate-200 bg-slate-50 mt-10">
+  <div class="w-full flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+    <div class="flex flex-col gap-1">
+      <span class="font-bold text-slate-900">Kredify</span>
+      <span class="text-xs text-slate-500">© 2025 Kredify. Zero-Knowledge Verified Trust.</span>
+    </div>
+    <nav class="flex gap-8">
+      <a class="text-slate-500 hover:text-cyan-500 text-xs transition-colors" href="#">Privacy Policy</a>
+      <a class="text-slate-500 hover:text-cyan-500 text-xs transition-colors" href="#">Security Audit</a>
+      <a class="text-slate-500 hover:text-cyan-500 text-xs transition-colors" href="#">Terms of Service</a>
+      <a class="text-slate-500 hover:text-cyan-500 text-xs transition-colors" href="#">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  const t=document.getElementById('mob-toggle'),d=document.getElementById('mob-drawer'),o=document.getElementById('mob-overlay');
+  if(t){t.addEventListener('click',()=>{d.classList.remove('hidden');document.body.style.overflow='hidden';});o.addEventListener('click',()=>{d.classList.add('hidden');document.body.style.overflow='';});}
+</script>
+</body>
+</html>
